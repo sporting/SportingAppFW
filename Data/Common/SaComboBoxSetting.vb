@@ -1,6 +1,4 @@
-﻿Imports SportingAppFW.Components.WinForm
-
-Namespace Data.Common
+﻿Namespace Data.Common
     Public Class SaComboBoxSetting
         Public Property DataSourceClass As Type
         Public Property ValueMember As String

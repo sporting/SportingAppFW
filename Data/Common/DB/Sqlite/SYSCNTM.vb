@@ -2,7 +2,7 @@
 Imports SportingAppFW.Data.Common
 Imports SportingAppFW.Extensions
 
-Namespace Data.Sqlite
+Namespace Data.Common.DB.Sqlite
     Public Class SYSCNTM
         Inherits SaTable
         Implements ISaTable

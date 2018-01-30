@@ -14,6 +14,8 @@ Namespace Data.Common
         Public ReadOnly FRAMEWORK_NAMESPACE As String = "SportingApp"
 
         Public ReadOnly FRAMEWORK_NAMESPACE_LOG As String = "SportingAppLog"
+
+        Public ReadOnly WorkingDirectory As String = CurDir()
     End Module
 
 End Namespace

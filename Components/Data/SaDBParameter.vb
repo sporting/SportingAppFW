@@ -3,7 +3,7 @@
 Public Class SaDBParameter
     Private _key As String = String.Empty
     Private _value As Object = Nothing
-    Private _dtype As System.Data.DbType
+    Private _dtype As DbType
 
     Public Property Key() As String
         Get

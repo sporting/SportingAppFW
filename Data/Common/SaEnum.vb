@@ -5,6 +5,7 @@
             MSSql
             Oracle
             SQLite
+            OleDB
         End Enum
 
         Public Enum eExcelVerEnum As Integer

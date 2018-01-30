@@ -58,6 +58,7 @@
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -119,6 +120,7 @@
       <HintPath>..\CrossDBOps\packages\NPOI.2.3.0\lib\net20\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Oracle.DataAccess, Version=2.111.7.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.106.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
@@ -156,6 +158,22 @@
     <Compile Include="Components\WinForm\SaNumericTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\Common\DB\MSSql\SaMSSqlDBClass.vb" />
+    <Compile Include="Data\Common\DB\MSSql\SaMSSqlDBColumnType.vb" />
+    <Compile Include="Data\Common\DB\MSSql\SaMSSqlDBTypeMappingClass.vb" />
+    <Compile Include="Data\Common\DB\Ole\SaOleDBColumnType.vb" />
+    <Compile Include="Data\Common\DB\Ole\SaOleDBTypeMappingClass.vb" />
+    <Compile Include="Data\Common\DB\Oracle\SaOracleDBColumnType.vb" />
+    <Compile Include="Data\Common\DB\Oracle\SaOracleDBTypeMappingClass.vb" />
+    <Compile Include="Data\Common\DB\SaBaseDBClass.vb" />
+    <Compile Include="Data\Common\DB\Ole\SaOleDBClass.vb" />
+    <Compile Include="Data\Common\DB\Oracle\SaOracleDBClass.vb" />
+    <Compile Include="Data\Common\DB\SaDataTypeMappingClass.vb" />
+    <Compile Include="Data\Common\DB\Sqlite\SaSQLiteDBClass.vb" />
+    <Compile Include="Data\Common\DB\Sqlite\SaSQLiteDBColumnType.vb" />
+    <Compile Include="Data\Common\DB\Sqlite\SaSQLiteDBTypeMappingClass.vb" />
+    <Compile Include="Data\Common\SaEachWorkCompleteEventArgs.vb" />
+    <Compile Include="Data\Common\SaDelegates.vb" />
     <Compile Include="Data\Common\SaColumnMapping.vb" />
     <Compile Include="Components\Data\SaDataTableFN.vb">
       <SubType>Component</SubType>
@@ -205,17 +223,15 @@
     <Compile Include="Data\Common\SaConstant.vb" />
     <Compile Include="Data\Common\SaDataSetAggregateClass.vb" />
     <Compile Include="Data\Common\SaEnum.vb" />
-    <Compile Include="Data\Common\SaDBTypeMappingClass.vb" />
     <Compile Include="Data\Common\SaCryptography.vb" />
-    <Compile Include="Data\Common\SaDataTypeMappingClass.vb" />
-    <Compile Include="Data\Common\SaDBColumnType.vb" />
+    <Compile Include="Data\Common\DB\SaDBColumnType.vb" />
     <Compile Include="Data\Common\SaTableSettings.vb" />
     <Compile Include="Data\Common\ISaTable.vb" />
     <Compile Include="Data\Common\SaFields.vb" />
     <Compile Include="Data\Common\SaFieldsAttribute.vb" />
     <Compile Include="Data\Common\SaTable.vb" />
     <Compile Include="Data\Common\SaUIFieldsAttribute.vb" />
-    <Compile Include="Data\Sqlite\SYSCNTM.vb" />
+    <Compile Include="Data\Common\DB\Sqlite\SYSCNTM.vb" />
     <Compile Include="Data\Validate\CitizenValidate.vb" />
     <Compile Include="Extensions\SaBytesExtension.vb" />
     <Compile Include="Extensions\SaCharExtension.vb" />
@@ -270,8 +286,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Fakes Include="Fakes\System.fakes" />
-    <Fakes Include="Fakes\mscorlib.fakes" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -293,9 +307,7 @@
   <ItemGroup>
     <Service Include="{94E38DFF-614B-4CBD-B67C-F211BB35CE8B}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Oracle\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\if_Gnome-Window-Close-32_55183.png" />
     <Content Include="res\if_Dropdown_70492.png" />
@@ -311,12 +323,7 @@ copy /Y $(TargetPath) D:\dailyJob</PostBuildEvent>
     <PropertyGroup>
       <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('.\packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '.\packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets'))" />
-    <Error Condition="!Exists('packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets'))" />
-    <Error Condition="!Exists('..\CrossDBOps\packages\System.Data.SQLite.Core.1.0.106.0\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\CrossDBOps\packages\System.Data.SQLite.Core.1.0.106.0\build\net20\System.Data.SQLite.Core.targets'))" />
   </Target>
-  <Import Project="packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('packages\System.Data.SQLite.Core.1.0.105.2\build\net20\System.Data.SQLite.Core.targets')" />
-  <Import Project="..\CrossDBOps\packages\System.Data.SQLite.Core.1.0.106.0\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('..\CrossDBOps\packages\System.Data.SQLite.Core.1.0.106.0\build\net20\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

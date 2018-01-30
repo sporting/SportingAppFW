@@ -181,6 +181,8 @@ Namespace Components.Data
                 dbDataAdapter = DbProviderFactories.GetFactory("Oracle.DataAccess.Client").CreateDataAdapter()
             ElseIf edt = eDatabaseType.SQLite Then
                 dbDataAdapter = DbProviderFactories.GetFactory("System.Data.SQLite").CreateDataAdapter()
+            ElseIf edt = eDatabaseType.OleDB Then
+                dbDataAdapter = DbProviderFactories.GetFactory("System.Data.OleDb").CreateDataAdapter()
             Else
                 dbDataAdapter = Nothing
             End If
@@ -206,6 +208,8 @@ Namespace Components.Data
                 dbDataAdapter = DbProviderFactories.GetFactory("Oracle.DataAccess.Client").CreateDataAdapter()
             ElseIf edt = eDatabaseType.SQLite Then
                 dbDataAdapter = DbProviderFactories.GetFactory("System.Data.SQLite").CreateDataAdapter()
+            ElseIf edt = eDatabaseType.OleDB Then
+                dbDataAdapter = DbProviderFactories.GetFactory("System.Data.OleDb").CreateDataAdapter()
             Else
                 dbDataAdapter = Nothing
             End If
@@ -232,6 +236,8 @@ Namespace Components.Data
                 dbcmdBuilder = DbProviderFactories.GetFactory("Oracle.DataAccess.Client").CreateCommandBuilder()
             ElseIf edt = eDatabaseType.SQLite Then
                 dbcmdBuilder = DbProviderFactories.GetFactory("System.Data.SQLite").CreateCommandBuilder()
+            ElseIf edt = eDatabaseType.OleDB Then
+                dbcmdBuilder = DbProviderFactories.GetFactory("System.Data.OleDb").CreateCommandBuilder()
             Else
                 dbcmdBuilder = Nothing
             End If

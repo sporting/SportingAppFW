@@ -1,15 +1,10 @@
-﻿'*****************************************************
-'* Copyright 2017, SportingApp, all rights reserved. *
-'* Author: Shih Peiting                              *
-'* mailto: sportingapp@gmail.com                     *
-'*****************************************************
-Namespace Data.Common
+﻿Namespace Data.Common.DB
     ''' <summary>
     ''' DB Table to ORM Class
     ''' </summary>
-    Public NotInheritable Class SaDBTypeMappingClass
+    Public NotInheritable Class SaOracleDBTypeMappingClass
         Dim typeMap As Dictionary(Of String, System.Type) = New Dictionary(Of String, System.Type)()
-        Private Shared _instance As SaDBTypeMappingClass = Nothing
+        Private Shared _instance As SaOracleDBTypeMappingClass = Nothing
         Private Shared lock As Object = New Object()
 
         Private Sub New()
@@ -34,12 +29,12 @@ Namespace Data.Common
 
         End Sub
 
-        Public Shared ReadOnly Property Instance() As SaDBTypeMappingClass
+        Public Shared ReadOnly Property Instance() As SaOracleDBTypeMappingClass
             Get
                 If _instance Is Nothing Then
                     SyncLock lock
                         If _instance Is Nothing Then
-                            _instance = New SaDBTypeMappingClass()
+                            _instance = New SaOracleDBTypeMappingClass()
                         End If
                     End SyncLock
                 End If

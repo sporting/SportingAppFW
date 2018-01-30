@@ -4,10 +4,10 @@
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
 
-Namespace Data.Common
-    Public Class SaDBColumnType
+Namespace Data.Common.DB
+    Public MustInherit Class SaDBColumnType
         Dim _column As String
-        Dim _data_type As String
+        Friend Property data_type As String
         Dim _ms_type As System.Type
 
         Public Property Column As String
@@ -21,22 +21,18 @@ Namespace Data.Common
 
         Public Property DataType As String
             Get
-                Return _data_type
+                Return data_type
             End Get
             Set(value As String)
-                _data_type = value
+                data_type = value
             End Set
-        End Property
-
-        Public ReadOnly Property MsType As System.Type
-            Get
-                Return SaDBTypeMappingClass.Instance.Mapping(_data_type)
-            End Get
         End Property
 
         Sub New(ByVal col As String, ByVal type As String)
             _column = col
-            _data_type = type
+            data_type = type
         End Sub
+
+        Public MustOverride ReadOnly Property MsType As System.Type
     End Class
 End Namespace

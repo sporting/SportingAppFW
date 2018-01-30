@@ -3,8 +3,8 @@
 '* Author: Shih Peiting                              *
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
-Imports System.Security.Cryptography
 Imports System.IO
+Imports System.Security.Cryptography
 Imports System.Text
 Imports SportingAppFW.Extensions
 

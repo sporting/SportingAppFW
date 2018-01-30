@@ -9,7 +9,6 @@ Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
 Imports NPOI.HSSF.UserModel
-Imports NPOI.HSSF.UserModel.HeaderFooter
 Imports NPOI.SS.UserModel
 Imports SportingAppFW.Data.Common
 Imports SportingAppFW.SaSystem

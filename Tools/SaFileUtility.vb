@@ -85,7 +85,7 @@ Namespace Tools
 
         'Caution!!!!!
         Sub RemoveAllFilesWithExtension(dir As String, ext As String)
-            If Not Directory.Exists(dir) Then
+            If Directory.Exists(dir) Then
                 Try
                     For Each f As String In Directory.GetFiles(dir)
                         If Path.GetExtension(f) = ext Then

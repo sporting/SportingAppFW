@@ -16,6 +16,8 @@ Namespace Components
                 Return eDatabaseType.Oracle
             ElseIf (String.Compare(str, "SQLITECONNECTION", False) = 0) Then
                 Return eDatabaseType.SQLite
+            ElseIf (String.Compare(str, "OLEDBCONNECTION", False) = 0) Then
+                Return eDatabaseType.OleDB
             Else
                 Return eDatabaseType.UnKnown
             End If

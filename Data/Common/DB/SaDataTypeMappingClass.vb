@@ -4,8 +4,6 @@
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
 
-Imports System
-Imports System.Data
 Namespace Data.Common
     Public NotInheritable Class SaDataTypeMapping
         Dim typeMap As Dictionary(Of Type, DbType) = New Dictionary(Of Type, DbType)()

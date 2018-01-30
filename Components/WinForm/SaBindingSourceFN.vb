@@ -3,7 +3,6 @@
 '* Author: Shih Peiting                              *
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
-Imports System.ComponentModel
 Imports System.Windows.Forms
 Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common
