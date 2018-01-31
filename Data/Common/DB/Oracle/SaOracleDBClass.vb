@@ -53,7 +53,7 @@ Namespace Data.Common.DB.Oracle
 
         Public Overrides ReadOnly Property SimpleConnectionString() As String
             Get
-                Return DBHost + " " + ServiceName
+                Return IIf(DBHost.Equals(ServiceName), DBHost, DBHost + " " + ServiceName)
             End Get
         End Property
 

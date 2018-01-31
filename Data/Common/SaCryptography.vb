@@ -107,5 +107,60 @@ Namespace Data.Common
             Return rsa.VerifyData(data, New SHA1CryptoServiceProvider(), signature)
         End Function
 
+        ''' <summary>
+        ''' 對稱式加密
+        ''' </summary>
+        ''' <param name="plainText"></param>
+        ''' <param name="key"></param>
+        ''' <returns></returns>
+        Public Function TextEncrypt(ByVal plainText As String, ByVal key As String) As String
+            Dim AES As New RijndaelManaged()
+            Dim MD5 As New MD5CryptoServiceProvider()
+            Dim plainTextData As Byte() = Encoding.Unicode.GetBytes(plainText)
+            Dim keyData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes(key))
+            Dim IVData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes("Super SportingApp"))
+            AES.Key = keyData
+            AES.IV = IVData
+            AES.Padding = PaddingMode.PKCS7
+            Dim transform As ICryptoTransform = AES.CreateEncryptor()
+            ' Dim transform As ICryptoTransform = AES.CreateEncryptor(keyData, IVData)
+            Dim outputData As Byte() = transform.TransformFinalBlock(plainTextData, 0, plainTextData.Length)
+            Return Convert.ToBase64String(outputData)
+        End Function
+
+        ''' <summary>
+        ''' 對稱式解密
+        ''' </summary>
+        ''' <param name="cipherTextData"></param>
+        ''' <param name="key"></param>
+        ''' <returns></returns>
+        Public Function TextDecrypt(ByVal cipherTextData As Byte(), ByVal key As String) As String
+            Dim AES As New RijndaelManaged()
+            Dim MD5 As New MD5CryptoServiceProvider()
+            Dim keyData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes(key))
+            Dim IVData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes("Super SportingApp"))
+            AES.Key = keyData
+            AES.IV = IVData
+            AES.Padding = PaddingMode.PKCS7
+            Dim transform As ICryptoTransform = AES.CreateDecryptor()
+            ' Dim transform As ICryptoTransform = AES.CreateDecryptor(keyData, IVData)
+            Dim outputData As Byte() = transform.TransformFinalBlock(cipherTextData, 0, cipherTextData.Length)
+            Return Encoding.Unicode.GetString(outputData)
+        End Function
+
+        Public Function TextDecrypt(ByVal encryptData As String, ByVal key As String) As String
+            Dim cipherTextData As Byte() = Convert.FromBase64String(encryptData)
+            Dim AES As New RijndaelManaged()
+            Dim MD5 As New MD5CryptoServiceProvider()
+            Dim keyData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes(key))
+            Dim IVData As Byte() = MD5.ComputeHash(Encoding.Unicode.GetBytes("Super SportingApp"))
+            AES.Key = keyData
+            AES.IV = IVData
+            AES.Padding = PaddingMode.PKCS7
+            Dim transform As ICryptoTransform = AES.CreateDecryptor()
+            ' Dim transform As ICryptoTransform = AES.CreateDecryptor(keyData, IVData)
+            Dim outputData As Byte() = transform.TransformFinalBlock(cipherTextData, 0, cipherTextData.Length)
+            Return Encoding.Unicode.GetString(outputData)
+        End Function
     End Module
 End Namespace

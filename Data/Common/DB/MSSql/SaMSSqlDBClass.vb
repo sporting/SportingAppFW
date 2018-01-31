@@ -189,6 +189,7 @@ Namespace Data.Common.DB.MSSql
                 + " SELECT " _
                 + "       sOBJ.name AS [TableName] " _
                 + "       , SUM(sPTN.Rows) AS [RowCount] " _
+                + "       , SCHEMA_NAME(sOBJ.schema_id) AS [SchemaName] " _
                 + " FROM  " _
                 + "       sys.objects AS sOBJ " _
                 + "       INNER JOIN sys.partitions AS sPTN " _
@@ -201,7 +202,7 @@ Namespace Data.Common.DB.MSSql
                 + "       sOBJ.schema_id " _
                 + "       , sOBJ.name " _
                 + " ) " _
-                + " Select [TableName]+' ('+(CAST([RowCount] as VARCHAR(max)))+')' AS [TABLE_DESC], [TableName] AS [TABLE_NAME],[RowCount] AS [NUM_ROWS] FROM SubSet "
+                + " Select [SchemaName]+'.'+[TableName]+' ('+(CAST([RowCount] as VARCHAR(max)))+')' AS [TABLE_DESC], [TableName] AS [TABLE_NAME],[RowCount] AS [NUM_ROWS] FROM SubSet "
 
             Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
