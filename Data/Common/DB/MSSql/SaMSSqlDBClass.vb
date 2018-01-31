@@ -1,7 +1,5 @@
-﻿Imports System.Data
+﻿Imports System.Data.Common
 Imports System.Data.SqlClient
-Imports System.Data.Common
-Imports System.Text.RegularExpressions
 Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
@@ -27,13 +25,13 @@ Namespace Data.Common.DB.MSSql
         Public Sub New(ByVal datasource As String, ByVal userid As String, ByVal passwd As String, Optional ByVal auto_commit As Boolean = False)
             Me.New(String.Format("Data Source={0};Persist Security Info=True;User Id={1};Password={2}", datasource, userid, passwd), auto_commit)
 
+            Logger.SaveLog(LogTag, String.Format("{0} {1}", "Database Connect to: ", datasource))
+
             _datasource = datasource
         End Sub
 
         Public Sub New(ByVal connection_string As String, Optional ByVal auto_commit As Boolean = False)
             Me.New()
-
-            Logger.SaveLog(LogTag, String.Format("{0} {1}", "Database Connect to: ", connection_string))
 
             _autoCommit = auto_commit
 
