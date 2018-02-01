@@ -58,6 +58,11 @@ Namespace Data.Common.DB.MSSql
             End Try
         End Sub
 
+        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
+            ChangeDatabase(databaseName)
+            Return ExecuteSQL(sql, row)
+        End Function
+
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
@@ -113,6 +118,11 @@ Namespace Data.Common.DB.MSSql
             End If
             DBMessage(Me, "No Connection")
             Return Nothing
+        End Function
+
+        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String) As SaDataTableFN
+            ChangeDatabase(databaseName)
+            Return ExecuteSQL(sql)
         End Function
 
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String) As SaDataTableFN
@@ -173,13 +183,53 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
-
+        Public Overloads Function GetDDL(ByVal databaseName As String, ByVal table As SaTableSettings) As String
+            ChangeDatabase(databaseName)
+            Return GetDDL(table)
+        End Function
         Public Overrides Function GetDDL(ByVal table As SaTableSettings) As String
             DBMessage(Me, "No Implement")
             Return Nothing
         End Function
 
-        Public Overrides Function GetTables() As SaDataTableFN
+        Public Function ChangeDatabase(databaseName As String) As Boolean
+            Try
+                DBOpen()
+                _db.ChangeDatabase(databaseName)
+                Return True
+            Catch ex As Exception
+                DBMessage(Me, ex.Message)
+                Return False
+            End Try
+        End Function
+        Public Function GetDatabases() As SaDataTableFN
+            CreateConnection()
+            '+ "       QUOTENAME(SCHEMA_NAME(sOBJ.schema_id)) + '.' + QUOTENAME(sOBJ.name) AS [TableName] " _
+            Dim sql As String = "SELECT name FROM master.dbo.sysdatabases where HAS_DBACCESS(name) =1"
+
+            Logger.SaveLog(LogTag, sql)
+            If _db IsNot Nothing Then
+
+                _executionStatus = ExecutionStatus.Executing
+                Try
+                    Dim dtb As SaDataTableFN = New SaDataTableFN(sql, _db)
+                    dtb.FillByDataAdapter(True)
+
+                    Return dtb
+                Finally
+                    _executionStatus = ExecutionStatus.Idle
+                End Try
+            End If
+            DBMessage(Me, "No Connection")
+            Return Nothing
+        End Function
+
+        Public Overloads Function GetTables(ByVal databaseName As String) As SaDataTableFN
+            ChangeDatabase(databaseName)
+            Return GetTables()
+        End Function
+
+        Public Overloads Overrides Function GetTables() As SaDataTableFN
             CreateConnection()
             '+ "       QUOTENAME(SCHEMA_NAME(sOBJ.schema_id)) + '.' + QUOTENAME(sOBJ.name) AS [TableName] " _
             Dim sql As String = "WITH SubSet AS " _
@@ -219,6 +269,11 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
+        Public Overloads Function DetectTableType(ByVal databaseName As String, ByVal table As String) As ObjectType
+            ChangeDatabase(databaseName)
+            Return DetectTableType(table)
+        End Function
+
         Public Overrides Function DetectTableType(table As String) As ObjectType
             CreateConnection()
 
@@ -250,6 +305,10 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
+        Public Overloads Function GetIndexes(ByVal databaseName As String, ByVal table As SaTableSettings) As SaDataTableFN
+            ChangeDatabase(databaseName)
+            Return GetIndexes(table)
+        End Function
         Public Overrides Function GetIndexes(ByVal table As SaTableSettings) As SaDataTableFN
             CreateConnection()
             Dim sql As String = "SELECT B.OBJECT_ID,B.NAME AS INDEX_NAME,D.NAME AS COLUMN_NAME,E.NAME AS DATA_TYPE, D.MAX_LENGTH,D.PRECISION FROM SYS.objects A, SYS.INDEXES B,SYS.INDEX_COLUMNS C,SYS.COLUMNS D,SYS.TYPES E WHERE A.OBJECT_ID=B.OBJECT_ID AND A.NAME=@TABLE_NAME AND B.OBJECT_ID=C.OBJECT_ID AND B.INDEX_ID=C.INDEX_ID AND C.OBJECT_ID=D.OBJECT_ID AND C.COLUMN_ID=D.COLUMN_ID AND D.user_type_id=E.user_type_id ORDER BY A.NAME,B.NAME,D.NAME"
@@ -274,7 +333,7 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
-        Public Overrides Function GetColumns(ByVal table As SaTableSettings) As SaDataTableFN
+        Public Overloads Overrides Function GetColumns(ByVal table As SaTableSettings) As SaDataTableFN
             CreateConnection()
             Dim sql As String = "SELECT D.NAME AS COLUMN_NAME,D.COLUMN_ID,E.NAME AS DATA_TYPE,D.MAX_LENGTH,D.PRECISION FROM SYS.objects A,SYS.COLUMNS D,SYS.TYPES E WHERE A.NAME=@TABLE_NAME AND A.OBJECT_ID=D.OBJECT_ID  AND D.user_type_id=E.user_type_id ORDER BY D.COLUMN_ID"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
@@ -296,6 +355,15 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
+        Public Overloads Function GetColumns(ByVal databaseName As String, ByVal table As SaTableSettings) As SaDataTableFN
+            ChangeDatabase(databaseName)
+            Return GetColumns(table)
+        End Function
+
+        Public Overloads Function GetColumnsTypeCollection(ByVal databaseName As String, ByVal table As SaTableSettings) As List(Of SaDBColumnType)
+            ChangeDatabase(databaseName)
+            Return GetColumnsTypeCollection(table)
+        End Function
 
         Public Overrides Function GetColumnsTypeCollection(ByVal table As SaTableSettings) As List(Of SaDBColumnType)
             CreateConnection()
