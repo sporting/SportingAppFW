@@ -10,6 +10,8 @@
         Public Delegate Sub ColumnChangingStaticValue(ByVal sender As Object, ByRef e As DataColumnChangeEventArgs)
         Public Delegate Sub RowChangingStaticValue(ByVal sender As Object, ByRef row As DataRow)
         Public Delegate Sub RowChangedStaticValue(ByVal sender As Object, ByRef row As DataRow)
+
+        Public Delegate Sub AfterStartProcess(ByVal p As Process)
     End Module
 
 End Namespace

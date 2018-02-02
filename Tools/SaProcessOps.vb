@@ -6,10 +6,12 @@
 Imports System.IO
 Imports System.Security.Permissions
 Imports SportingAppFW.Extensions.SaStringExtension
+Imports SportingAppFW.SaSystem.SaDelegates
 
 Namespace Tools
 
     Public Module SaProcessOps
+        Public Event AfterStartProcessHandler As AfterStartProcess
         ''' <summary>
         ''' 呼叫外部程式
         ''' </summary>
@@ -41,6 +43,7 @@ Namespace Tools
 
             startInfo.WorkingDirectory = workingDir
             startInfo.UseShellExecute = useShell
+            startInfo.RedirectStandardOutput = IIf(useShell, False, True)
 
             Dim p As Process = Process.Start(startInfo)
 
@@ -67,7 +70,7 @@ Namespace Tools
                     p.WaitForExit()
                 End If
             End If
-
+            RaiseEvent AfterStartProcessHandler(p)
             Return True
         End Function
     End Module
