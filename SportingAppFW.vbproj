@@ -315,7 +315,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y $(TargetPath) D:\AppDeploy\MyOraclePortal
+    <PostBuildEvent>copy /Y $(TargetPath) D:\AppDeploy\MyDBPortal
 copy /Y $(TargetPath) D:\AppDeploy
 copy /Y $(TargetPath) D:\dailyJob</PostBuildEvent>
   </PropertyGroup>
