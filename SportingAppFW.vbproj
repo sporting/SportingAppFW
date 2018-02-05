@@ -246,7 +246,7 @@
     <Compile Include="Extensions\SaStringExtension.vb" />
     <Compile Include="Extensions\SaStringsExtension.vb" />
     <Compile Include="Extensions\SaTypeExtension.vb" />
-    <Compile Include="SaLoggerClass.vb" />
+    <Compile Include="SaSystem\SaLoggerClass.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -262,8 +262,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="System\SaObjectBuilder.vb" />
-    <Compile Include="System\SaDelegates.vb" />
+    <Compile Include="SaSystem\SaObjectBuilder.vb" />
+    <Compile Include="SaSystem\SaDelegates.vb" />
     <Compile Include="Tools\SaAttributeUtility.vb" />
     <Compile Include="Tools\SaDataGridViewUtility.vb" />
     <Compile Include="Tools\SaExcelUtility.vb" />

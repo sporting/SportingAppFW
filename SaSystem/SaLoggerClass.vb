@@ -7,7 +7,7 @@
 Imports System.IO
 Imports SportingAppFW.Data.Common
 
-Namespace Logger
+Namespace SaSystem.Logger
     Public Class SaLoggerClass
         Private Shared _instance As SaLoggerClass
         Private Shared _lock As Object = New Object()

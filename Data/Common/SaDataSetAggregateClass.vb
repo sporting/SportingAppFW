@@ -6,8 +6,7 @@
 Imports SportingAppFW.Extensions
 Imports SportingAppFW.Tools
 
-Namespace Data.Common.DataSetUtl
-
+Namespace Data.Common
     ''' <summary>
     ''' Operator enum 
     ''' soSum 加

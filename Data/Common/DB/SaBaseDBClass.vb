@@ -5,7 +5,7 @@ Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
-Imports SportingAppFW.Logger
+Imports SportingAppFW.SaSystem.Logger
 
 Namespace Data.Common.DB
     Public MustInherit Class SaBaseDBClass

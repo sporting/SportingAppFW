@@ -1,4 +1,4 @@
-﻿Namespace Data.Common.DB
+﻿Namespace Data.Common.DB.Oracle
     Public Class SaOracleDBColumnType
         Inherits SaDBColumnType
         Public Overrides ReadOnly Property MsType As System.Type
