@@ -219,6 +219,7 @@
     <Compile Include="SaWindows\Forms\SaTabControlSU.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SaWindows\Forms\SaTabIndexRearrange.vb" />
     <Compile Include="SaWindows\Forms\SaWordsPosition.vb" />
     <Compile Include="Data\Common\SaComboBoxSetting.vb" />
     <Compile Include="Data\Common\SaConstant.vb" />
