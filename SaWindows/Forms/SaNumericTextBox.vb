@@ -2,7 +2,7 @@
 Imports System.Globalization
 Imports System.Windows.Forms
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     Public Class SaNumericTextBox
         Inherits TextBox
         Private SpaceOK As Boolean = False

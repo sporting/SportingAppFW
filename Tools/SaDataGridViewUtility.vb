@@ -2,8 +2,8 @@
 Imports System.Drawing
 Imports System.Reflection
 Imports System.Windows.Forms
-Imports SportingAppFW.Components.WinForm
 Imports SportingAppFW.Data.Common
+Imports SportingAppFW.SaWindows.Forms
 
 Namespace Tools
     Public Module SaDataGridViewUtility

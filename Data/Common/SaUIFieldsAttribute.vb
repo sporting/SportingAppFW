@@ -1,7 +1,4 @@
-﻿Imports System.Windows.Forms
-Imports SportingAppFW.Components.WinForm
-
-Namespace Data.Common
+﻿Namespace Data.Common
     Public Enum ReadModeEnum
         Read
         ReadWrite

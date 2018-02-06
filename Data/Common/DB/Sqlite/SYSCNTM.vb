@@ -1,6 +1,5 @@
-﻿Imports SportingAppFW.Components.Data
-Imports SportingAppFW.Data.Common
-Imports SportingAppFW.Extensions
+﻿Imports SportingAppFW.Extensions
+Imports SportingAppFW.SaWindows.Data
 
 Namespace Data.Common.DB.Sqlite
     Public Class SYSCNTM

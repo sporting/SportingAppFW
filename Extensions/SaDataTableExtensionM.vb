@@ -5,6 +5,7 @@
 '*****************************************************
 Imports System.Runtime.CompilerServices
 Imports System.Reflection
+Imports SportingAppFW.SaWindows.Data
 
 Namespace Extensions
     ''' <summary>
@@ -36,9 +37,9 @@ Namespace Extensions
         End Function
 
         <Extension()>
-        Public Function ToDataTableFN(ByVal dtb As DataTable) As Components.Data.SaDataTableFN
+        Public Function ToDataTableFN(ByVal dtb As DataTable) As SaDataTableFN
             'control privilege transfer to DataTableFN
-            Return Components.Data.SaDataTableFN.ToDataTableFN(dtb)
+            Return SaDataTableFN.ToDataTableFN(dtb)
         End Function
 
         ''' <summary>

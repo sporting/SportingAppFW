@@ -3,7 +3,7 @@ Imports System.Windows.Forms
 Imports SportingAppFW.Data.Common
 Imports SportingAppFW.Extensions
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     Public Class SaMultiComboBoxColumn
         Inherits DataGridViewColumn
 
@@ -381,9 +381,9 @@ Namespace Components.WinForm
 
             '  If Not valueIsChanged Then
             valueIsChanged = True
-                Me.EditingControlDataGridView.NotifyCurrentCellDirty(True)
-                MyBase.OnTextChanged(e)
-          '  End If
+            Me.EditingControlDataGridView.NotifyCurrentCellDirty(True)
+            MyBase.OnTextChanged(e)
+            '  End If
         End Sub
 
     End Class

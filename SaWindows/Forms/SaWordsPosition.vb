@@ -3,7 +3,7 @@
 '* Author: Shih Peiting                              *
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     Public Class SaWordsPosition
         Dim _text As String
         Dim _startIdx As Integer

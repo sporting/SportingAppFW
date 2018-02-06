@@ -1,8 +1,8 @@
 ﻿Imports System.Data.Common
 Imports System.Data.SqlClient
-Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
+Imports SportingAppFW.SaWindows.Data
 Imports SportingAppFW.Tools
 
 Namespace Data.Common.DB.MSSql

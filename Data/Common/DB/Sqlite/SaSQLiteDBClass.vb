@@ -1,9 +1,8 @@
 ﻿Imports System.Data.Common
 Imports System.Data.SQLite
-Imports SportingAppFW.Components.Data
-Imports SportingAppFW.Data.Common
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
+Imports SportingAppFW.SaWindows.Data
 Imports SportingAppFW.Tools
 
 Namespace Data.Common.DB.Sqlite

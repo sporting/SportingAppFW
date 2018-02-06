@@ -1,11 +1,10 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.Common
 Imports System.Text.RegularExpressions
-Imports SportingAppFW.Components.Data
-Imports SportingAppFW.Data.Common
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
 Imports SportingAppFW.SaSystem.Logger
+Imports SportingAppFW.SaWindows.Data
 
 Namespace Data.Common.DB
     Public MustInherit Class SaBaseDBClass

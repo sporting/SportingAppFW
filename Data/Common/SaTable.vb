@@ -1,7 +1,7 @@
 ﻿Imports System.Reflection
-Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Extensions
 Imports SportingAppFW.SaSystem.SaDelegates
+Imports SportingAppFW.SaWindows.Data
 
 Namespace Data.Common
     Public Class SaTable

@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Forms
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     Public Class SaCalendarColumn
         Inherits DataGridViewColumn
 

@@ -1,7 +1,7 @@
 ﻿Imports System.Data.Common
 Imports SportingAppFW.Data.Common.SaEnum
 
-Namespace Components
+Namespace SaWindows.Data
     Public MustInherit Class SaDBConnection
         Inherits DbConnection
         Public Shared Function DetectDatabaseType(ByRef dbconn As DbConnection) As eDatabaseType

@@ -4,7 +4,7 @@ Imports SportingAppFW.Extensions
 Imports SportingAppFW.Data.Common
 Imports SportingAppFW.SaSystem.SaDelegates
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     ''' <summary>
     ''' Summary description for MultiColumnComboBox.
     ''' </summary>

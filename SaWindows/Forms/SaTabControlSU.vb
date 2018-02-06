@@ -6,8 +6,8 @@
 Imports System.Drawing
 Imports System.Windows.Forms
 
-Namespace Components.WinForm
-    Public Class SaTabControlSU
+Namespace SaWindows.Forms
+    Partial Public Class SaTabControlSU
         Inherits TabControl
 
         Private _tabHeaderVisible As Boolean = True

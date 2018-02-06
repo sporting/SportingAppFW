@@ -3,7 +3,7 @@
 '* Author: Shih Peiting                              *
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
-Namespace Components.WinForm
+Namespace SaWindows.Forms
 
     Public Class SaPhrases
         Dim _hash As Hashtable

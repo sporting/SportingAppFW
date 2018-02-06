@@ -156,7 +156,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\WinForm\SaNumericTextBox.vb">
+    <Compile Include="SaWindows\Forms\SaNumericTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\Common\DB\MSSql\SaMSSqlDBClass.vb" />
@@ -176,50 +176,50 @@
     <Compile Include="Data\Common\SaEachWorkCompleteEventArgs.vb" />
     <Compile Include="Data\Common\SaDelegates.vb" />
     <Compile Include="Data\Common\SaColumnMapping.vb" />
-    <Compile Include="Components\Data\SaDataTableFN.vb">
+    <Compile Include="SaWindows\Data\SaDataTableFN.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\Data\SaDBConnection.vb">
+    <Compile Include="SaWindows\Data\SaDBConnection.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\Data\SaDBParameter.vb" />
-    <Compile Include="Components\WinForm\SaMultiComboBoxColumn.vb" />
-    <Compile Include="Components\WinForm\SaMultiComboPopup.Designer.vb">
+    <Compile Include="SaWindows\Data\SaDBParameter.vb" />
+    <Compile Include="SaWindows\Forms\SaMultiComboBoxColumn.vb" />
+    <Compile Include="SaWindows\Forms\SaMultiComboPopup.Designer.vb">
       <DependentUpon>SaMultiComboPopup.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\WinForm\SaMultiComboPopup.vb">
+    <Compile Include="SaWindows\Forms\SaMultiComboPopup.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaBindingSourceFN.Designer.vb">
+    <Compile Include="SaWindows\Forms\SaBindingSourceFN.Designer.vb">
       <DependentUpon>SaBindingSourceFN.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\WinForm\SaBindingSourceFN.vb">
+    <Compile Include="SaWindows\Forms\SaBindingSourceFN.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaCalendarColumn.vb" />
-    <Compile Include="Components\WinForm\SaDataGridViewFN.Designer.vb">
+    <Compile Include="SaWindows\Forms\SaCalendarColumn.vb" />
+    <Compile Include="SaWindows\Forms\SaDataGridViewFN.Designer.vb">
       <DependentUpon>SaDataGridViewFN.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\WinForm\SaDataGridViewFN.vb">
+    <Compile Include="SaWindows\Forms\SaDataGridViewFN.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaIntelliTextBox.Designer.vb">
+    <Compile Include="SaWindows\Forms\SaIntelliTextBox.Designer.vb">
       <DependentUpon>SaIntelliTextBox.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\WinForm\SaIntelliTextBox.vb">
+    <Compile Include="SaWindows\Forms\SaIntelliTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaMultiComboBox.vb">
+    <Compile Include="SaWindows\Forms\SaMultiComboBox.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaPhrases.vb" />
-    <Compile Include="Components\WinForm\SaTabControlSU.Designer.vb">
+    <Compile Include="SaWindows\Forms\SaPhrases.vb" />
+    <Compile Include="SaWindows\Forms\SaTabControlSU.Designer.vb">
       <DependentUpon>SaTabControlSU.vb</DependentUpon>
     </Compile>
-    <Compile Include="Components\WinForm\SaTabControlSU.vb">
+    <Compile Include="SaWindows\Forms\SaTabControlSU.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Components\WinForm\SaWordsPosition.vb" />
+    <Compile Include="SaWindows\Forms\SaWordsPosition.vb" />
     <Compile Include="Data\Common\SaComboBoxSetting.vb" />
     <Compile Include="Data\Common\SaConstant.vb" />
     <Compile Include="Data\Common\SaDataSetAggregateClass.vb" />
@@ -274,7 +274,7 @@
     <Compile Include="Tools\SaUtility.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Components\WinForm\SaMultiComboPopup.resx">
+    <EmbeddedResource Include="SaWindows\Forms\SaMultiComboPopup.resx">
       <DependentUpon>SaMultiComboPopup.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

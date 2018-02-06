@@ -9,7 +9,7 @@ Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.SaSystem.SaDelegates
 ' DataTable Filled by command if it's necessary
 
-Namespace Components.Data
+Namespace SaWindows.Data
     ''' <summary>
     ''' use data adapter to fetch data from database when necessary
     ''' </summary>

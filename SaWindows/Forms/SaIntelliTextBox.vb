@@ -7,9 +7,9 @@ Imports System.Drawing
 Imports System.Windows.Forms
 Imports SportingAppFW.Extensions
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
 
-    Public Class SaIntelliTextBox
+    Partial Public Class SaIntelliTextBox
         Inherits TextBox
 
         Private Enum TextChangeMode
@@ -72,7 +72,7 @@ Namespace Components.WinForm
         End Property
 
         Sub New(ByVal intellisenseMode As Boolean)
-            MyClass.New()
+            MyBase.New()
 
             _intellisenseMode = intellisenseMode
         End Sub

@@ -4,10 +4,10 @@
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
 Imports System.Windows.Forms
-Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common
+Imports SportingAppFW.SaWindows.Data
 
-Namespace Components.WinForm
+Namespace SaWindows.Forms
     Partial Public Class SaBindingSourceFN
         Inherits BindingSource
 

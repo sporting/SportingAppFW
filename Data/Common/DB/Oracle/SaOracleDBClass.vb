@@ -1,10 +1,10 @@
 ﻿Imports System.Data.Common
 Imports System.Text.RegularExpressions
 Imports Oracle.DataAccess.Client
-Imports SportingAppFW.Components.Data
 Imports SportingAppFW.Data.Common.SaEnum
 Imports SportingAppFW.Extensions
 Imports SportingAppFW.Extensions.SaStringExtension
+Imports SportingAppFW.SaWindows.Data
 Imports SportingAppFW.Tools
 
 Namespace Data.Common.DB.Oracle
