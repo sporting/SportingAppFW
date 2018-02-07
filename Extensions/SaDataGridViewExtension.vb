@@ -8,6 +8,7 @@ Imports System.IO
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Windows.Forms
+Imports Newtonsoft.Json
 Imports NPOI.HSSF.UserModel
 Imports NPOI.SS.UserModel
 Imports SportingAppFW.Data.Common
@@ -46,6 +47,33 @@ Namespace Extensions
                     Next intRowData
                     sr.WriteLine(strRowData)
                 Next intX
+                sr.Close()
+                Return True
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
+        <Extension()>
+        Public Function ExportToJson(dgv As DataGridView, ByVal strExportFileName As String) As Boolean
+            Try
+                Dim sr As StreamWriter = IO.File.CreateText(strExportFileName)
+                Dim ht As Hashtable
+                Dim hs As HashSet(Of Hashtable) = New HashSet(Of Hashtable)()
+                Dim js As String
+
+                For Each row As DataGridViewRow In dgv.Rows
+                    ht = New Hashtable()
+                    For colidx As Integer = 0 To dgv.Columns.Count - 1
+                        ht.Add(dgv.Columns(colidx).HeaderText, row.Cells(colidx).Value.ToString())
+                    Next
+                    hs.Add(ht)
+                Next
+
+                js = JsonConvert.SerializeObject(hs)
+
+                sr.Write(js)
                 sr.Close()
                 Return True
             Catch ex As Exception

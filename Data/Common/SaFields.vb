@@ -32,12 +32,12 @@ Namespace Data.Common
         ReadOnly Property Names As String()
             Get
                 Dim val = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
-                          Select attri.Key
+                          Select attri.Key.Name
 
                 If val.Count < 1 Then
                     Return New String() {}
                 Else
-                    Return val
+                    Return val.ToArray()
                 End If
             End Get
         End Property

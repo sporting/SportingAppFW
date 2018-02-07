@@ -73,7 +73,7 @@ Namespace SaWindows.Forms
 
         Sub New(ByVal intellisenseMode As Boolean)
             MyBase.New()
-
+            InitializeComponent()
             _intellisenseMode = intellisenseMode
         End Sub
 
