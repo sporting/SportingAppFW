@@ -1,4 +1,12 @@
-﻿Imports System.Windows.Forms
+﻿'*****************************************************
+'* Copyright 2017, SportingApp, all rights reserved. *
+'* Author: Shih Peiting                              *
+'* mailto: sportingapp@gmail.com                     *
+'*****************************************************
+
+Imports System.Runtime.InteropServices
+Imports System.Windows.Forms
+Imports Microsoft.Win32.SafeHandles
 
 Namespace SaWindows.Forms
     Public Enum RearrangeVerticalDirection
@@ -17,6 +25,10 @@ Namespace SaWindows.Forms
     End Enum
 
     Public Class SaTabIndexRearrange
+        Implements IDisposable
+        Private disposed As Boolean = False
+        Private handle As SafeHandle = New SafeFileHandle(IntPtr.Zero, True)
+
         Private _container As Control
         Private _force As Boolean = True
         Private _directionPriority As RearrangeDirectionPriority = RearrangeDirectionPriority.Vertical
@@ -160,6 +172,29 @@ Namespace SaWindows.Forms
                     DoIt(con)
                 End If
             Next
+        End Sub
+
+        ' Public implementation of Dispose pattern callable by consumers.
+        Public Sub Dispose() _
+              Implements IDisposable.Dispose
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        End Sub
+
+        ' Protected implementation of Dispose pattern.
+        Protected Overridable Sub Dispose(disposing As Boolean)
+            If disposed Then Return
+
+            If disposing Then
+                handle.Dispose()
+
+                ' Free any other managed objects here.
+                '
+            End If
+
+            ' Free any unmanaged objects here.
+            '
+            disposed = True
         End Sub
     End Class
 End Namespace
