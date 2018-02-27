@@ -26,9 +26,9 @@
             Me.components = New System.ComponentModel.Container()
             Me.PanelIndicator = New System.Windows.Forms.Panel()
             Me.TBDefineValue = New System.Windows.Forms.TextBox()
-            Me.NTBRangeValue = New SportingAppFW.SaWindows.Forms.SaNumericTextBox()
             Me.CMSDelItem = New System.Windows.Forms.ContextMenuStrip(Me.components)
             Me.TSMIDelete = New System.Windows.Forms.ToolStripMenuItem()
+            Me.NTBRangeValue = New SportingAppFW.SaWindows.Forms.SaNumericTextBox()
             Me.CMSDelItem.SuspendLayout()
             Me.SuspendLayout()
             '
@@ -36,6 +36,7 @@
             '
             Me.PanelIndicator.BackColor = System.Drawing.Color.Red
             Me.PanelIndicator.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+            Me.PanelIndicator.ContextMenuStrip = Me.CMSDelItem
             Me.PanelIndicator.Location = New System.Drawing.Point(23, 24)
             Me.PanelIndicator.Name = "PanelIndicator"
             Me.PanelIndicator.Size = New System.Drawing.Size(6, 40)
@@ -51,6 +52,18 @@
             Me.TBDefineValue.TabStop = False
             Me.TBDefineValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
+            'CMSDelItem
+            '
+            Me.CMSDelItem.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMIDelete})
+            Me.CMSDelItem.Name = "CMSDelItem"
+            Me.CMSDelItem.Size = New System.Drawing.Size(101, 26)
+            '
+            'TSMIDelete
+            '
+            Me.TSMIDelete.Name = "TSMIDelete"
+            Me.TSMIDelete.Size = New System.Drawing.Size(100, 22)
+            Me.TSMIDelete.Text = "移除"
+            '
             'NTBRangeValue
             '
             Me.NTBRangeValue.AllowSpace = False
@@ -61,22 +74,9 @@
             Me.NTBRangeValue.TabStop = False
             Me.NTBRangeValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
-            'CMSDelItem
-            '
-            Me.CMSDelItem.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMIDelete})
-            Me.CMSDelItem.Name = "CMSDelItem"
-            Me.CMSDelItem.Size = New System.Drawing.Size(153, 48)
-            '
-            'TSMIDelete
-            '
-            Me.TSMIDelete.Name = "TSMIDelete"
-            Me.TSMIDelete.Size = New System.Drawing.Size(152, 22)
-            Me.TSMIDelete.Text = "移除"
-            '
             'SaBarIndicator
             '
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
-            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
             Me.Controls.Add(Me.TBDefineValue)
             Me.Controls.Add(Me.NTBRangeValue)
             Me.Controls.Add(Me.PanelIndicator)

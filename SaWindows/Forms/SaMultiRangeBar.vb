@@ -216,7 +216,7 @@ Namespace SaWindows.Forms
             AddHandler ind.IndDeleteHandler, AddressOf IndDelete
 
             If val < 0 Then
-                val = PointToClient(MousePosition).X * (Maximum - Minimum) / (Width - ind.IndicatorCenter.X)
+                val = ((Maximum - Minimum) / (Width - ind.IndicatorCenter.X)) * PointToClient(MousePosition).X
             End If
 
             val = ValBetweenMinimumMaximum(val)
@@ -259,7 +259,7 @@ Namespace SaWindows.Forms
 
         Protected Sub IndicatorMouseMove(ByVal sender As Object, ByVal e As MouseEventArgs)
             If _startDrag Then
-                Dim pointedValue As Integer = e.X * (Maximum - Minimum) / (Width - CType(sender, SaBarIndicator).IndicatorCenter.X)
+                Dim pointedValue As Integer = ((Maximum - Minimum) / (Width - CType(sender, SaBarIndicator).IndicatorCenter.X)) * e.X
                 Dim val As Integer = CType(sender, SaBarIndicator).RangeValue + pointedValue
 
                 val = ValBetweenMinimumMaximum(val)
