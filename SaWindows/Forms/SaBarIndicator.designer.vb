@@ -23,9 +23,13 @@
         '請不要使用程式碼編輯器進行修改。
         <System.Diagnostics.DebuggerStepThrough()>
         Private Sub InitializeComponent()
-            Me.PanelIndicator = New System.Windows.Forms.Panel
-            Me.TBDefineValue = New System.Windows.Forms.TextBox
-            Me.NTBRangeValue = New SaNumericTextBox
+            Me.components = New System.ComponentModel.Container()
+            Me.PanelIndicator = New System.Windows.Forms.Panel()
+            Me.TBDefineValue = New System.Windows.Forms.TextBox()
+            Me.NTBRangeValue = New SportingAppFW.SaWindows.Forms.SaNumericTextBox()
+            Me.CMSDelItem = New System.Windows.Forms.ContextMenuStrip(Me.components)
+            Me.TSMIDelete = New System.Windows.Forms.ToolStripMenuItem()
+            Me.CMSDelItem.SuspendLayout()
             Me.SuspendLayout()
             '
             'PanelIndicator
@@ -57,6 +61,18 @@
             Me.NTBRangeValue.TabStop = False
             Me.NTBRangeValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
+            'CMSDelItem
+            '
+            Me.CMSDelItem.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMIDelete})
+            Me.CMSDelItem.Name = "CMSDelItem"
+            Me.CMSDelItem.Size = New System.Drawing.Size(153, 48)
+            '
+            'TSMIDelete
+            '
+            Me.TSMIDelete.Name = "TSMIDelete"
+            Me.TSMIDelete.Size = New System.Drawing.Size(152, 22)
+            Me.TSMIDelete.Text = "移除"
+            '
             'SaBarIndicator
             '
             Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -66,6 +82,7 @@
             Me.Controls.Add(Me.PanelIndicator)
             Me.Name = "SaBarIndicator"
             Me.Size = New System.Drawing.Size(51, 87)
+            Me.CMSDelItem.ResumeLayout(False)
             Me.ResumeLayout(False)
             Me.PerformLayout()
 
@@ -73,7 +90,8 @@
         Friend WithEvents PanelIndicator As System.Windows.Forms.Panel
         Friend WithEvents NTBRangeValue As SaNumericTextBox
         Friend WithEvents TBDefineValue As System.Windows.Forms.TextBox
-
+        Friend WithEvents CMSDelItem As Windows.Forms.ContextMenuStrip
+        Friend WithEvents TSMIDelete As Windows.Forms.ToolStripMenuItem
     End Class
 
 End Namespace

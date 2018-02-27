@@ -89,6 +89,11 @@ Namespace SaWindows.Forms
         <Description("Publish Bar Value Change Event")>
         Public Event IndRangeValueChangedHandler As IndRangeValueChanged
 
+
+        Public Delegate Sub IndDelete(ByVal sender As Object, ByVal e As EventArgs)
+        <Description("Publish Context Menu Click Event")>
+        Public Event IndDeleteHandler As IndDelete
+
         Sub New()
 
             ' 此為 Windows Form 設計工具所需的呼叫。
@@ -107,6 +112,7 @@ Namespace SaWindows.Forms
             AddHandler NTBRangeValue.TextChanged, AddressOf ValueChange
             AddHandler TBDefineValue.TextChanged, AddressOf ValueChange
 
+            AddHandler TSMIDelete.Click, AddressOf DeleteIndicator
         End Sub
 
         Protected Sub ValueChange(ByVal sender As Object, ByVal e As EventArgs)
@@ -125,7 +131,9 @@ Namespace SaWindows.Forms
             RaiseEvent IndMouseMoveHandler(Me, e)
         End Sub
 
-
+        Private Sub DeleteIndicator(ByVal sender As System.Object, ByVal e As System.EventArgs)
+            RaiseEvent IndDeleteHandler(Me, e)
+        End Sub
     End Class
 
 End Namespace

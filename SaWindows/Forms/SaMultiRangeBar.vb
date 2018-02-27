@@ -213,6 +213,7 @@ Namespace SaWindows.Forms
             AddHandler ind.IndMouseMoveHandler, AddressOf IndicatorMouseMove
             AddHandler ind.IndMouseUpHandler, AddressOf IndicatorMouseUp
             AddHandler ind.IndRangeValueChangedHandler, AddressOf IndicatorValueChanged
+            AddHandler ind.IndDeleteHandler, AddressOf IndDelete
 
             If val < 0 Then
                 val = PointToClient(MousePosition).X * (Maximum - Minimum) / (Width - ind.IndicatorCenter.X)
@@ -279,6 +280,14 @@ Namespace SaWindows.Forms
             RaiseEvent ValueInvalidateHandler(sender, e)
         End Sub
 
+        Protected Sub IndDelete(ByVal sender As Object, ByVal e As EventArgs)
+            _indicators.Remove(sender)
+            Me.Controls.Remove(sender)
+
+            RaiseEvent ValueInvalidateHandler(sender, Nothing)
+        End Sub
+
+
         Protected Overrides Sub OnPaint(ByVal e As System.Windows.Forms.PaintEventArgs)
             MyBase.OnPaint(e)
 
@@ -296,6 +305,5 @@ Namespace SaWindows.Forms
             e.Graphics.DrawString(Minimum.ToString(), Me.Font, Brushes.Black, LeftOffset - minfw.Width, (h \ 2) - (minfw.Height \ 2))
             e.Graphics.DrawString(Maximum.ToString(), Me.Font, Brushes.Black, w - RightOffset, (h \ 2) - (maxfw.Height \ 2))
         End Sub
-
     End Class
 End Namespace
