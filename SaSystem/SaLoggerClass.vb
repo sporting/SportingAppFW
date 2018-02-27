@@ -14,7 +14,7 @@ Namespace SaSystem.Logger
 
         Dim _path As String
 
-        Private Sub New(Optional ByVal path As String = "")
+        Private Sub New(Optional ByVal path As String = ".")
             _path = path
         End Sub
 

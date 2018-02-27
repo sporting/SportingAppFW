@@ -1,5 +1,5 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class MultiColumnComboPopup
+﻿<CompilerServices.DesignerGenerated()>
+Partial Class SaMultiComboPopup
     Inherits System.Windows.Forms.UserControl
 
     'UserControl 覆寫 Dispose 以清除元件清單。
@@ -53,3 +53,4 @@ Partial Class MultiColumnComboPopup
 
     Private WithEvents lstvMyView As Windows.Forms.ListView
 End Class
+

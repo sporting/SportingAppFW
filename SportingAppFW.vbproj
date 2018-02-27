@@ -160,6 +160,18 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SaWindows\Forms\SaBarIndicator.designer.vb">
+      <DependentUpon>SaBarIndicator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SaWindows\Forms\SaBarIndicator.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SaWindows\Forms\SaMultiRangeBar.Designer.vb">
+      <DependentUpon>SaMultiRangeBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="SaWindows\Forms\SaMultiRangeBar.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SaWindows\Forms\SaNumericTextBox.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -217,6 +229,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SaWindows\Forms\SaPhrases.vb" />
+    <Compile Include="SaWindows\Forms\SaRangeValue.vb" />
+    <Compile Include="SaWindows\Forms\SaRangeValueChangeEventArgs.vb" />
     <Compile Include="SaWindows\Forms\SaTabControlSU.Designer.vb">
       <DependentUpon>SaTabControlSU.vb</DependentUpon>
     </Compile>
@@ -279,6 +293,9 @@
     <Compile Include="Tools\SaUtility.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SaWindows\Forms\SaBarIndicator.resx">
+      <DependentUpon>SaBarIndicator.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SaWindows\Forms\SaMultiComboPopup.resx">
       <DependentUpon>SaMultiComboPopup.vb</DependentUpon>
       <SubType>Designer</SubType>
