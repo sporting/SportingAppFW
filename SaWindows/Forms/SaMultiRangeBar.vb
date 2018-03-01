@@ -277,6 +277,9 @@ Namespace SaWindows.Forms
         Public Event ValueInvalidateHandler As ValueInvalidate
 
         Protected Sub IndicatorValueChanged(ByVal sender As Object, ByVal e As SaRangeValueChangeEventArgs)
+            'range check
+            CType(sender, SaBarIndicator).RangeValue = ValBetweenMinimumMaximum(e.RangeValue)
+
             RaiseEvent ValueInvalidateHandler(sender, e)
         End Sub
 
