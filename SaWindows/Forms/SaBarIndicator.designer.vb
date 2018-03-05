@@ -25,9 +25,9 @@
         Private Sub InitializeComponent()
             Me.components = New System.ComponentModel.Container()
             Me.PanelIndicator = New System.Windows.Forms.Panel()
-            Me.TBDefineValue = New System.Windows.Forms.TextBox()
             Me.CMSDelItem = New System.Windows.Forms.ContextMenuStrip(Me.components)
             Me.TSMIDelete = New System.Windows.Forms.ToolStripMenuItem()
+            Me.TBDefineValue = New System.Windows.Forms.TextBox()
             Me.NTBRangeValue = New SportingAppFW.SaWindows.Forms.SaNumericTextBox()
             Me.CMSDelItem.SuspendLayout()
             Me.SuspendLayout()
@@ -42,16 +42,6 @@
             Me.PanelIndicator.Size = New System.Drawing.Size(6, 40)
             Me.PanelIndicator.TabIndex = 0
             '
-            'TBDefineValue
-            '
-            Me.TBDefineValue.BackColor = System.Drawing.Color.Khaki
-            Me.TBDefineValue.Location = New System.Drawing.Point(0, 66)
-            Me.TBDefineValue.Name = "TBDefineValue"
-            Me.TBDefineValue.Size = New System.Drawing.Size(52, 22)
-            Me.TBDefineValue.TabIndex = 2
-            Me.TBDefineValue.TabStop = False
-            Me.TBDefineValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-            '
             'CMSDelItem
             '
             Me.CMSDelItem.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMIDelete})
@@ -63,6 +53,16 @@
             Me.TSMIDelete.Name = "TSMIDelete"
             Me.TSMIDelete.Size = New System.Drawing.Size(100, 22)
             Me.TSMIDelete.Text = "移除"
+            '
+            'TBDefineValue
+            '
+            Me.TBDefineValue.BackColor = System.Drawing.Color.Khaki
+            Me.TBDefineValue.Location = New System.Drawing.Point(0, 66)
+            Me.TBDefineValue.Name = "TBDefineValue"
+            Me.TBDefineValue.Size = New System.Drawing.Size(52, 22)
+            Me.TBDefineValue.TabIndex = 2
+            Me.TBDefineValue.TabStop = False
+            Me.TBDefineValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
             '
             'NTBRangeValue
             '
@@ -77,6 +77,7 @@
             'SaBarIndicator
             '
             Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
+            Me.BackColor = System.Drawing.Color.Transparent
             Me.Controls.Add(Me.TBDefineValue)
             Me.Controls.Add(Me.NTBRangeValue)
             Me.Controls.Add(Me.PanelIndicator)

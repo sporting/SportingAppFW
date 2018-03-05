@@ -6,6 +6,7 @@ Imports System.Drawing.Drawing2D
 Imports System.Windows.Forms
 
 Namespace SaWindows.Forms
+
     Public Class SaMultiRangeBar
         Protected StraightPen As Pen
 
@@ -152,18 +153,59 @@ Namespace SaWindows.Forms
             End Get
         End Property
 
+        Private _ts As ToolTip
+        Private _tooltipEnable As Boolean = True
+
+        <Description("Enable tooltips")>
+        Public Property ToolTipEnable() As Boolean
+            Get
+                Return _tooltipEnable
+            End Get
+            Set(ByVal value As Boolean)
+                _tooltipEnable = value
+
+                SetToolTips(value)
+            End Set
+        End Property
+
+
+        Private Sub SetToolTips(ByVal enable As Boolean)
+            _ts.RemoveAll()
+
+            If enable Then
+                _ts.ShowAlways = True
+
+                _ts.IsBalloon = True   '有沒這項 顯示外框會不同
+
+                For Each ind As SaBarIndicator In _indicators
+                    For Each con As Control In ind.Controls
+                        If TypeOf con Is SaNumericTextBox Then
+                            _ts.SetToolTip(con, CType(con, SaNumericTextBox).Text)
+                        ElseIf TypeOf con Is TextBox Then
+                            _ts.SetToolTip(con, CType(con, TextBox).Text)
+                        End If
+                    Next
+                Next
+            End If
+        End Sub
+
+        Private Sub SetToolTips(ByRef con As Control, ByVal val As String)
+            If _tooltipEnable Then
+                _ts.SetToolTip(con, val)
+            End If
+        End Sub
 
         Private ReadOnly Property LeftOffset() As Integer
             Get
                 Dim w As Integer = Me.Width
-                Dim minfw As Size = TextRenderer.MeasureText(Minimum.ToString(), Me.Font)
+                Dim minfw As Size = TextRenderer.MeasureText(Minimum.ToString(_currencyFormat), Me.Font)
                 Return minfw.Width
             End Get
         End Property
 
         Private ReadOnly Property RightOffset() As Integer
             Get
-                Dim maxfw As Size = TextRenderer.MeasureText(Maximum.ToString(), Me.Font)
+                Dim maxfw As Size = TextRenderer.MeasureText(Maximum.ToString(_currencyFormat), Me.Font)
                 Return maxfw.Width
             End Get
         End Property
@@ -179,13 +221,15 @@ Namespace SaWindows.Forms
             InitializeComponent()
 
             ' 在 InitializeComponent() 呼叫之後加入任何初始設定。
+            _ts = New ToolTip()
+
             SetStyle(ControlStyles.AllPaintingInWmPaint, True)
             SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
             SetStyle(ControlStyles.SupportsTransparentBackColor, True)
             Me.BackColor = Color.Transparent
 
             _indicators = New List(Of SaBarIndicator)()
-            _indicators.Add(NewIndicator())
+            NewIndicator()
 
             AddHandler DoubleClick, AddressOf SaMultiRangeBarDoubleClick
             AddHandler Application.Idle, AddressOf SaMultiRangeBarOnIdle
@@ -193,21 +237,35 @@ Namespace SaWindows.Forms
             Me.Invalidate()
         End Sub
 
+        Private _isCurrency As Boolean = False
+        Private _currencyFormat As String = ""
+
+        Public Property IsCurrency() As Boolean
+            Get
+                Return _isCurrency
+            End Get
+            Set(ByVal value As Boolean)
+                _isCurrency = value
+                _currencyFormat = IIf(_isCurrency, "N0", "")
+            End Set
+        End Property
+
         Protected Sub SaMultiRangeBarDoubleClick(ByVal sender As Object, ByVal e As EventArgs)
             If EnableMultiRangeIndicator Then
                 Dim ind As SaBarIndicator = NewIndicator()
 
-                _indicators.Add(ind)
+                '_indicators.Add(ind)
 
                 IndicatorValueChanged(ind, New SaRangeValueChangeEventArgs(ind.RangeValue, ind.DefineValue))
             End If
         End Sub
 
-        Protected Function NewIndicator(Optional ByVal val As Integer = -1) As SaBarIndicator
+        Public Function NewIndicator(Optional ByVal val As Integer = -1, Optional ByVal defVal As String = "") As SaBarIndicator
             Dim ind As SaBarIndicator = New SaBarIndicator()
             ind.RangeColor = BarRangeColor
             ind.DefineColor = BarDefineColor
             ind.BarColor = BarColor
+            ind.IsCurrency = _isCurrency
 
             AddHandler ind.IndMouseDownHandler, AddressOf IndicatorMouseDown
             AddHandler ind.IndMouseMoveHandler, AddressOf IndicatorMouseMove
@@ -222,15 +280,27 @@ Namespace SaWindows.Forms
             val = ValBetweenMinimumMaximum(val)
 
             ind.RangeValue = val
+            ind.DefineValue = defVal
+
+            If _tooltipEnable Then
+                _ts.SetToolTip(ind.NTBRangeValue, ind.NTBRangeValue.Text)
+                _ts.SetToolTip(ind.TBDefineValue, ind.TBDefineValue.Text)
+            End If
+
 
             ind.Parent = Me
             Me.Controls.Add(ind)
+            _indicators.Add(ind)
 
             Return ind
         End Function
 
+        Public Sub Clear()
+            Me.Controls.Clear()
+            _indicators.Clear()
+        End Sub
+
         Private Function ValBetweenMinimumMaximum(ByVal val As Integer) As Integer
-            val = Math.Max(val, Minimum)
             If val < Minimum Then
                 val = Minimum
             ElseIf val > Maximum Then
@@ -278,7 +348,11 @@ Namespace SaWindows.Forms
 
         Protected Sub IndicatorValueChanged(ByVal sender As Object, ByVal e As SaRangeValueChangeEventArgs)
             'range check
-            CType(sender, SaBarIndicator).RangeValue = ValBetweenMinimumMaximum(e.RangeValue)
+            Dim val As Integer = ValBetweenMinimumMaximum(e.RangeValue)
+            Dim ind As SaBarIndicator = CType(sender, SaBarIndicator)
+            ind.RangeValue = val
+
+            SetToolTips(ind.NTBRangeValue, ind.NTBRangeValue.Text)
 
             RaiseEvent ValueInvalidateHandler(sender, e)
         End Sub
@@ -297,16 +371,16 @@ Namespace SaWindows.Forms
             '請在此處加入您自訂的繪製程式碼
             Dim w As Integer = Me.Width
             Dim h As Integer = Me.Height
-            Dim maxfw As Size = TextRenderer.MeasureText(Maximum.ToString(), Me.Font)
-            Dim minfw As Size = TextRenderer.MeasureText(Minimum.ToString(), Me.Font)
+            Dim maxfw As Size = TextRenderer.MeasureText(Maximum.ToString(_currencyFormat), Me.Font)
+            Dim minfw As Size = TextRenderer.MeasureText(Minimum.ToString(_currencyFormat), Me.Font)
 
             StraightPen = New Pen(Color.DarkGray, _penWidth)
             StraightPen.Alignment = PenAlignment.Center
 
             e.Graphics.DrawLine(StraightPen, LeftOffset, h \ 2, w - RightOffset, h \ 2)
 
-            e.Graphics.DrawString(Minimum.ToString(), Me.Font, Brushes.Black, LeftOffset - minfw.Width, (h \ 2) - (minfw.Height \ 2))
-            e.Graphics.DrawString(Maximum.ToString(), Me.Font, Brushes.Black, w - RightOffset, (h \ 2) - (maxfw.Height \ 2))
+            e.Graphics.DrawString(Minimum.ToString(_currencyFormat), Me.Font, Brushes.Black, LeftOffset - minfw.Width, (h \ 2) - (minfw.Height \ 2))
+            e.Graphics.DrawString(Maximum.ToString(_currencyFormat), Me.Font, Brushes.Black, w - RightOffset, (h \ 2) - (maxfw.Height \ 2))
         End Sub
     End Class
 End Namespace

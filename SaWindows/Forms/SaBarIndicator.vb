@@ -30,14 +30,23 @@ Namespace SaWindows.Forms
         Public Property RangeValue() As Integer
             Get
                 Dim val As Integer
-                If Integer.TryParse(NTBRangeValue.Text, val) Then
+                If Integer.TryParse(NTBRangeValue.Text.Replace(",", ""), val) Then
                     Return val
                 End If
 
                 Return 0
             End Get
             Set(ByVal value As Integer)
-                NTBRangeValue.Text = value.ToString()
+                If IsCurrency Then
+                    Dim s As Integer = NTBRangeValue.SelectionStart
+                    Dim oriPos As Integer = NTBRangeValue.Text.Substring(0, s).Count(Function(c) c = ",")
+                    Dim newPos As Integer = value.ToString("N0").Substring(0, s).Count(Function(c) c = ",")
+                    Dim cartPosOffSet As Integer = newPos - oriPos
+                    NTBRangeValue.Text = value.ToString("N0")
+                    NTBRangeValue.SelectionStart = s + cartPosOffSet
+                Else
+                    NTBRangeValue.Text = value.ToString()
+                End If
             End Set
         End Property
 
@@ -93,6 +102,15 @@ Namespace SaWindows.Forms
         Public Delegate Sub IndDelete(ByVal sender As Object, ByVal e As EventArgs)
         <Description("Publish Context Menu Click Event")>
         Public Event IndDeleteHandler As IndDelete
+
+        Public Property IsCurrency() As Boolean
+            Get
+                Return NTBRangeValue.IsCurrency
+            End Get
+            Set(ByVal value As Boolean)
+                NTBRangeValue.IsCurrency = value
+            End Set
+        End Property
 
         Sub New()
 

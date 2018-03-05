@@ -3,8 +3,19 @@ Imports System.Globalization
 Imports System.Windows.Forms
 
 Namespace SaWindows.Forms
+
     Public Class SaNumericTextBox
         Inherits TextBox
+        Private _isCurrency As Boolean = False
+        Public Property IsCurrency() As Boolean
+            Get
+                Return _isCurrency
+            End Get
+            Set(ByVal value As Boolean)
+                _isCurrency = value
+            End Set
+        End Property
+
         Private SpaceOK As Boolean = False
 
         ' Restricts the entry of characters to digits (including hex),
@@ -62,5 +73,20 @@ Namespace SaWindows.Forms
                 Me.SpaceOK = value
             End Set
         End Property
+
+
+        Private Sub SaNumericTextBox_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.LostFocus
+            Text = FormatWithComma(Text)
+        End Sub
+
+        Private Function FormatWithComma(ByVal val As String) As String
+            Dim res As Integer
+            If Integer.TryParse(val, res) Then
+                Return res.ToString("N0")
+            End If
+
+            Return val
+        End Function
+
     End Class
 End Namespace
