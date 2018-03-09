@@ -46,6 +46,12 @@ Namespace SaWindows.Forms
         '請勿使用程式碼編輯器進行修改。
         <System.Diagnostics.DebuggerStepThrough()>
         Private Sub InitializeComponent()
+
+            SetStyle(ControlStyles.AllPaintingInWmPaint, True)
+            SetStyle(ControlStyles.UserPaint, True)
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, True)
+            SetStyle(ControlStyles.ResizeRedraw, True)
+
             _phrasesListBox = New ListBox()
             _phrasesListBox.Visible = False
             '_phrasesListBox.Parent = _mainForm

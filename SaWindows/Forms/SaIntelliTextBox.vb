@@ -17,6 +17,17 @@ Namespace SaWindows.Forms
             CM_REPLACE = 2
         End Enum
 
+        Private _placeHolder As String
+        Public Property PlaceHolder As String
+            Get
+                Return _placeHolder
+            End Get
+            Set(value As String)
+                _placeHolder = value
+
+                Invalidate()
+            End Set
+        End Property
         Private _intellisenseMode As Boolean = False
         Private _phrasesListBox As ListBox
         Private _phrasesListBoxFont As Size
@@ -73,7 +84,9 @@ Namespace SaWindows.Forms
 
         Sub New(ByVal intellisenseMode As Boolean)
             MyBase.New()
+
             InitializeComponent()
+
             _intellisenseMode = intellisenseMode
         End Sub
 
@@ -192,6 +205,14 @@ Namespace SaWindows.Forms
             End Try
 
             MyBase.OnKeyDown(e)
+        End Sub
+
+        Protected Overrides Sub OnPaint(e As PaintEventArgs)
+            MyBase.OnPaint(e)
+
+            If Text.Length <= 0 AndAlso PlaceHolder.Length > 0 Then
+                e.Graphics.DrawString(PlaceHolder, Me.Font, Brushes.LightGray, New Point(0, 0))
+            End If
         End Sub
 
         'Protected Overrides Function IsInputKey(ByVal keyData As Keys) As Boolean
