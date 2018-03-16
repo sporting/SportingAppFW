@@ -3,7 +3,9 @@
 '* Author: Shih Peiting                              *
 '* mailto: sportingapp@gmail.com                     *
 '*****************************************************
+Imports System.ComponentModel
 Imports System.Drawing
+Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
 Imports SportingAppFW.Extensions
 
@@ -17,17 +19,39 @@ Namespace SaWindows.Forms
             CM_REPLACE = 2
         End Enum
 
-        Private _placeHolder As String
-        Public Property PlaceHolder As String
+        Private _placeHolder As String = String.Empty
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="hWnd">Control Handle</param>
+        ''' <param name="msg">SETCUEBANNER</param>
+        ''' <param name="wParam"></param>
+        ''' <param name="lParam">Watermark Text</param>
+        ''' <returns>IntPtr</returns>
+        ''' <remarks></remarks>
+        Private Declare Auto Function SendMessage Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal msg As Integer,
+                                                                ByVal wParam As Integer,
+                                                                <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As IntPtr
+
+        Private Const EM_SETCUEBANNER As Integer = &H1501
+
+        <Description("Show placeHolder hint when text is empty")>
+        Public Property PlaceHolder() As String
             Get
                 Return _placeHolder
             End Get
-            Set(value As String)
+            Set(ByVal value As String)
                 _placeHolder = value
 
-                Invalidate()
+                If String.IsNullOrEmpty(value) Then
+                    SendMessage(Me.Handle, EM_SETCUEBANNER, 0I, String.Empty)
+                Else
+                    SendMessage(Me.Handle, EM_SETCUEBANNER, 0I, value)
+                End If
             End Set
         End Property
+
         Private _intellisenseMode As Boolean = False
         Private _phrasesListBox As ListBox
         Private _phrasesListBoxFont As Size
@@ -205,14 +229,6 @@ Namespace SaWindows.Forms
             End Try
 
             MyBase.OnKeyDown(e)
-        End Sub
-
-        Protected Overrides Sub OnPaint(e As PaintEventArgs)
-            MyBase.OnPaint(e)
-
-            If Text.Length <= 0 AndAlso PlaceHolder.Length > 0 Then
-                e.Graphics.DrawString(PlaceHolder, Me.Font, Brushes.LightGray, New Point(0, 0))
-            End If
         End Sub
 
         'Protected Overrides Function IsInputKey(ByVal keyData As Keys) As Boolean
