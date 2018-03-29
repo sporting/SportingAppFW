@@ -19,6 +19,13 @@ Namespace Data.Common.DB
 
         Private _logTag As String = "SaBaseDBClass"
 
+        Public ReadOnly Property db As DbConnection
+            Get
+                Return _db
+            End Get
+        End Property
+
+
         Public Event DBMessageHandler As DBStatusMessage
         Protected Friend Sub DBMessage(ByVal sender As Object, ByVal msg As String)
             RaiseEvent DBMessageHandler(sender, msg)
@@ -222,6 +229,27 @@ Namespace Data.Common.DB
 
         Public MustOverride Overloads Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
 
+        Public Overridable Overloads Function ExecuteSQLFetchFirstData(ByVal sql As String) As Object
+            Dim dtb As SaDataTableFN = ExecuteSQL(sql)
+            If dtb IsNot Nothing Then
+                If dtb.Rows.Count > 0 Then
+                    Return dtb.Rows(0).Item(0)
+                End If
+            End If
+
+            Return Nothing
+        End Function
+
+        Public Overridable Overloads Function ExecuteSQLFetchFirstData(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As Object
+            Dim dtb As SaDataTableFN = ExecuteSQL(sql, row)
+            If dtb IsNot Nothing Then
+                If dtb.Rows.Count > 0 Then
+                    Return dtb.Rows(0).Item(0)
+                End If
+            End If
+
+            Return Nothing
+        End Function
     End Class
 
 End Namespace

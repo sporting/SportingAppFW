@@ -40,7 +40,7 @@ Namespace Data.Common
             End If
         End Sub
 
-        Sub New(ByRef db As IDbConnection, ByVal table As String, ByRef fields As SaFields)
+        Sub New(ByVal db As IDbConnection, ByVal table As String, ByVal fields As SaFields)
             MyBase.New(table)
             _db = db
             _fields = fields
@@ -173,7 +173,7 @@ Namespace Data.Common
                         If proval Is Nothing Then
                             wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
                         Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString()))
+                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
                         End If
                     End If
                 Next
@@ -186,7 +186,7 @@ Namespace Data.Common
                         If proval Is Nothing Then
                             wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
                         Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString()))
+                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
                         End If
                     Next
                 End If

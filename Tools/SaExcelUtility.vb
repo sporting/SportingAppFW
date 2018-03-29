@@ -70,7 +70,11 @@ Namespace Extensions
 
                             For iCellNum As Integer = headerRow.FirstCellNum To headerRow.LastCellNum - 1
                                 If iSht.GetRow(iRows).GetCell(iCellNum).CellType = CellType.Numeric Then
-                                    cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).NumericCellValue))
+                                    If DateUtil.IsCellDateFormatted(iSht.GetRow(iRows).GetCell(iCellNum)) Then
+                                        cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).DateCellValue))
+                                    Else
+                                        cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).NumericCellValue))
+                                    End If
                                 Else
                                     cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(String), iSht.GetRow(iRows).GetCell(iCellNum).StringCellValue))
                                 End If
@@ -88,8 +92,8 @@ Namespace Extensions
                         If affectRows < 0 Then
                             Return False
                         End If
-                    Catch
-
+                    Catch ex As Exception
+                        Console.WriteLine(ex.Message)
                     End Try
                 Next
 
@@ -98,7 +102,7 @@ Namespace Extensions
         End Function
 
 
-        Private Function GenerateSaFields(ByRef saf As SaFields, obj As Object, fields As List(Of SaField)) As SaFields
+        Public Function GenerateSaFields(ByVal saf As SaFields, obj As Object, fields As List(Of SaField)) As SaFields
             Dim t As Type = obj.GetType()
 
             Dim instance As SaFields = saf

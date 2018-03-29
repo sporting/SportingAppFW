@@ -118,6 +118,7 @@ Namespace Data.Common.DB.Sqlite
             Return Nothing
         End Function
 
+
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
