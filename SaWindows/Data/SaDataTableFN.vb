@@ -90,8 +90,10 @@ Namespace SaWindows.Data
             Try
                 _cmdBuilder = CreateCommandBuilder(_dataAdapter, _connection)
                 _dataAdapter.InsertCommand = _cmdBuilder.GetInsertCommand
-                _dataAdapter.UpdateCommand = _cmdBuilder.GetUpdateCommand
-                _dataAdapter.DeleteCommand = _cmdBuilder.GetDeleteCommand
+                If (PrimaryKey.Count > 0) Then
+                    _dataAdapter.UpdateCommand = _cmdBuilder.GetUpdateCommand
+                    _dataAdapter.DeleteCommand = _cmdBuilder.GetDeleteCommand
+                End If
             Catch ex As Exception
                 Console.WriteLine(String.Format("{0} {1}", TableName, ex.Message))
             End Try
