@@ -58,12 +58,12 @@ Namespace Data.Common.DB.MSSql
             End Try
         End Sub
 
-        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
+        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             ChangeDatabase(databaseName)
-            Return ExecuteSQL(sql, row)
+            Return ExecuteSQL(sql, row, allDataLoad)
         End Function
 
-        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
+        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
             Logger.SaveLog(LogTag, sql)
@@ -76,7 +76,7 @@ Namespace Data.Common.DB.MSSql
 
                         dtb = New SaDataTableFN(sql, row, _db)
 
-                        dtb.FillByDataAdapter(False)
+                        dtb.FillByDataAdapter(allDataLoad)
 
                         DBMessage(Me, _clock.StopCal())
 
@@ -120,12 +120,12 @@ Namespace Data.Common.DB.MSSql
             Return Nothing
         End Function
 
-        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String) As SaDataTableFN
+        Public Overloads Function ExecuteSQL(ByVal databaseName As String, ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             ChangeDatabase(databaseName)
-            Return ExecuteSQL(sql)
+            Return ExecuteSQL(sql, allDataLoad)
         End Function
 
-        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String) As SaDataTableFN
+        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
             Logger.SaveLog(LogTag, sql)
@@ -138,7 +138,7 @@ Namespace Data.Common.DB.MSSql
                         _clock.StartCal()
                         dtb = New SaDataTableFN(sql, _db)
 
-                        dtb.FillByDataAdapter(False)
+                        dtb.FillByDataAdapter(allDataLoad)
 
                         DBMessage(Me, _clock.StopCal())
 

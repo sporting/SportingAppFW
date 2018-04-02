@@ -69,14 +69,18 @@ Namespace Extensions
                             cellCols.Clear()
 
                             For iCellNum As Integer = headerRow.FirstCellNum To headerRow.LastCellNum - 1
-                                If iSht.GetRow(iRows).GetCell(iCellNum).CellType = CellType.Numeric Then
-                                    If DateUtil.IsCellDateFormatted(iSht.GetRow(iRows).GetCell(iCellNum)) Then
-                                        cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).DateCellValue))
+                                If iSht.GetRow(iRows).GetCell(iCellNum) IsNot Nothing Then
+                                    If iSht.GetRow(iRows).GetCell(iCellNum).CellType = CellType.Numeric Then
+                                        If DateUtil.IsCellDateFormatted(iSht.GetRow(iRows).GetCell(iCellNum)) Then
+                                            cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).DateCellValue))
+                                        Else
+                                            cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).NumericCellValue))
+                                        End If
                                     Else
-                                        cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(Integer), iSht.GetRow(iRows).GetCell(iCellNum).NumericCellValue))
+                                        cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(String), iSht.GetRow(iRows).GetCell(iCellNum).StringCellValue))
                                     End If
                                 Else
-                                    cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(String), iSht.GetRow(iRows).GetCell(iCellNum).StringCellValue))
+                                    cellCols.Add(New SaField(headerRow.GetCell(iCellNum).StringCellValue, GetType(String), ""))
                                 End If
                             Next
 

@@ -225,9 +225,9 @@ Namespace Data.Common.DB
 
         Public MustOverride Function GetDDL(ByVal table As SaTableSettings) As String
 
-        Public MustOverride Overloads Function ExecuteSQL(ByVal sql As String) As SaDataTableFN
+        Public MustOverride Overloads Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
 
-        Public MustOverride Overloads Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
+        Public MustOverride Overloads Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
 
         Public Overridable Overloads Function ExecuteSQLFetchFirstData(ByVal sql As String) As Object
             Dim dtb As SaDataTableFN = ExecuteSQL(sql)

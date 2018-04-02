@@ -61,7 +61,7 @@ Namespace Data.Common.DB.Ole
         End Sub
 
 
-        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As SaDataTableFN
+        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
             Logger.SaveLog(LogTag, sql)
@@ -74,7 +74,7 @@ Namespace Data.Common.DB.Ole
 
                         dtb = New SaDataTableFN(sql, row, _db)
 
-                        dtb.FillByDataAdapter(False)
+                        dtb.FillByDataAdapter(allDataLoad)
 
                         DBMessage(Me, _clock.StopCal())
 
@@ -118,7 +118,7 @@ Namespace Data.Common.DB.Ole
             Return Nothing
         End Function
 
-        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String) As SaDataTableFN
+        Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
 
             sql = sql.Trim()
@@ -132,7 +132,7 @@ Namespace Data.Common.DB.Ole
                         _clock.StartCal()
                         dtb = New SaDataTableFN(sql, _db)
 
-                        dtb.FillByDataAdapter(False)
+                        dtb.FillByDataAdapter(allDataLoad)
 
                         DBMessage(Me, _clock.StopCal())
 
