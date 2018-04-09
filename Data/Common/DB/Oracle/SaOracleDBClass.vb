@@ -101,7 +101,7 @@ Namespace Data.Common.DB.Oracle
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 _executionStatus = ExecutionStatus.Executing
                 Try
@@ -158,7 +158,7 @@ Namespace Data.Common.DB.Oracle
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -219,7 +219,7 @@ Namespace Data.Common.DB.Oracle
 
             Dim sql As String = "SELECT DBMS_METADATA.GET_DDL('" + IIf(table.TableType = ObjectType.otTable, "TABLE", "VIEW") + "', " + table.TableName.QuotedStr() + ", USER) FROM DUAL"
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -251,7 +251,7 @@ Namespace Data.Common.DB.Oracle
                     + " WHERE OWNER=USER) " _
                     + " ORDER BY TABLE_NAME "
 
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -273,7 +273,7 @@ Namespace Data.Common.DB.Oracle
 
             Dim sql As String = "SELECT OBJECT_TYPE FROM ALL_OBJECTS WHERE OWNER=USER AND OBJECT_NAME=" + table.QuotedStr()
 
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -298,7 +298,7 @@ Namespace Data.Common.DB.Oracle
             CreateConnection()
             sql = sql.Trim()
             sql = "Explain plan for " + sql
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -327,7 +327,7 @@ Namespace Data.Common.DB.Oracle
             Dim sql As String = "SELECT * FROM USER_IND_COLUMNS WHERE TABLE_NAME=:TABLE_NAME"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -351,7 +351,7 @@ Namespace Data.Common.DB.Oracle
             Dim sql As String = "SELECT * FROM USER_TAB_COLUMNS WHERE TABLE_NAME=:TABLE_NAME"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
                 _executionStatus = ExecutionStatus.Executing

@@ -64,7 +64,7 @@ Namespace Data.Common.DB.Ole
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 _executionStatus = ExecutionStatus.Executing
                 Try
@@ -122,7 +122,7 @@ Namespace Data.Common.DB.Ole
             CreateConnection()
 
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -259,7 +259,7 @@ Namespace Data.Common.DB.Ole
             CreateConnection()
             Dim sql As String = "PRAGMA table_info(" + table.TableName + ")"
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 _executionStatus = ExecutionStatus.Executing
                 Try

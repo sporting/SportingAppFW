@@ -22,7 +22,7 @@ Namespace SaSystem.Logger
             SaveLog(String.Format("[{0}] {1}", catelog, log), eventype)
         End Sub
 
-        Public EnableLog As Boolean = False;
+        Public EnableLog As Boolean = True
         Public Overloads Sub SaveLog(ByVal log As String, Optional ByVal eventype As TraceEventType = TraceEventType.Information)
             Dim filepath As String = Path.Combine(_path, FRAMEWORK_NAMESPACE_LOG) '指定Log資料夾的路徑與應用程式的路徑相同
             If Not Directory.Exists(filepath) Then

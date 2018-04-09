@@ -66,7 +66,7 @@ Namespace Data.Common.DB.MSSql
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 _executionStatus = ExecutionStatus.Executing
                 Try
@@ -128,7 +128,7 @@ Namespace Data.Common.DB.MSSql
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -207,7 +207,7 @@ Namespace Data.Common.DB.MSSql
             '+ "       QUOTENAME(SCHEMA_NAME(sOBJ.schema_id)) + '.' + QUOTENAME(sOBJ.name) AS [TableName] " _
             Dim sql As String = "SELECT name FROM master.dbo.sysdatabases where HAS_DBACCESS(name) =1"
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -252,7 +252,7 @@ Namespace Data.Common.DB.MSSql
                 + " ) " _
                 + " Select [SchemaName]+'.'+[TableName]+' ('+(CAST([RowCount] as VARCHAR(max)))+')' AS [TABLE_DESC], [TableName] AS [TABLE_NAME],[RowCount] AS [NUM_ROWS] FROM SubSet "
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -279,7 +279,7 @@ Namespace Data.Common.DB.MSSql
 
             Dim sql As String = "SELECT TYPE_DESC FROM SYS.OBJECTS WHERE NAME=" + table.QuotedStr()
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -314,7 +314,7 @@ Namespace Data.Common.DB.MSSql
             Dim sql As String = "SELECT B.OBJECT_ID,B.NAME AS INDEX_NAME,D.NAME AS COLUMN_NAME,E.NAME AS DATA_TYPE, D.MAX_LENGTH,D.PRECISION FROM SYS.objects A, SYS.INDEXES B,SYS.INDEX_COLUMNS C,SYS.COLUMNS D,SYS.TYPES E WHERE A.OBJECT_ID=B.OBJECT_ID AND A.NAME=@TABLE_NAME AND B.OBJECT_ID=C.OBJECT_ID AND B.INDEX_ID=C.INDEX_ID AND C.OBJECT_ID=D.OBJECT_ID AND C.COLUMN_ID=D.COLUMN_ID AND D.user_type_id=E.user_type_id ORDER BY A.NAME,B.NAME,D.NAME"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -338,7 +338,7 @@ Namespace Data.Common.DB.MSSql
             Dim sql As String = "SELECT D.NAME AS COLUMN_NAME,D.COLUMN_ID,E.NAME AS DATA_TYPE,D.MAX_LENGTH,D.PRECISION FROM SYS.objects A,SYS.COLUMNS D,SYS.TYPES E WHERE A.NAME=@TABLE_NAME AND A.OBJECT_ID=D.OBJECT_ID  AND D.user_type_id=E.user_type_id ORDER BY D.COLUMN_ID"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
                 _executionStatus = ExecutionStatus.Executing

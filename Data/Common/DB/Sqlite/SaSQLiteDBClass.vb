@@ -64,7 +64,7 @@ Namespace Data.Common.DB.Sqlite
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, ByVal row As List(Of SaDBParameter), Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 _executionStatus = ExecutionStatus.Executing
                 Try
@@ -122,7 +122,7 @@ Namespace Data.Common.DB.Sqlite
         Public Overloads Overrides Function ExecuteSQL(ByVal sql As String, Optional ByVal allDataLoad As Boolean = False) As SaDataTableFN
             CreateConnection()
             sql = sql.Trim()
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -198,7 +198,7 @@ Namespace Data.Common.DB.Sqlite
 
             Dim sql As String = "SELECT SQL FROM SQLITE_MASTER WHERE TYPE='table' AND NAME=" + table.TableName.QuotedStr()
 
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -225,7 +225,7 @@ Namespace Data.Common.DB.Sqlite
 
             Dim sql As String = "SELECT TBL_NAME AS TABLE_DESC,TBL_NAME AS TABLE_NAME,-1 AS NUM_ROWS FROM SQLITE_MASTER WHERE TYPE='table' ORDER BY TABLE_NAME"
 
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -247,7 +247,7 @@ Namespace Data.Common.DB.Sqlite
 
             Dim sql As String = "Select TYPE FROM SQLITE_MASTER WHERE NAME=" + table.QuotedStr()
 
-            Logger.SaveLog(LogTag, sql)
+            '   Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
 
                 _executionStatus = ExecutionStatus.Executing
@@ -272,7 +272,7 @@ Namespace Data.Common.DB.Sqlite
             CreateConnection()
             sql = sql.Trim()
             sql = "Explain query plan " + sql
-            Logger.SaveLog(LogTag, sql)
+            ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -295,7 +295,7 @@ Namespace Data.Common.DB.Sqlite
             Dim sql As String = "Select * FROM SQLITE_MASTER WHERE TBL_NAME=:TABLE_NAME AND TYPE='index'"
             Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            '  Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
 
@@ -319,7 +319,7 @@ Namespace Data.Common.DB.Sqlite
             Dim sql As String = "PRAGMA table_info(" + table.TableName + ")"
             'Dim params As List(Of SaDBParameter) = New List(Of SaDBParameter)()
             'params.Add(New SaDBParameter(Type.GetType("System.String"), "TABLE_NAME", table.TableName))
-            Logger.SaveLog(LogTag, sql)
+            '    Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then
                 Dim dtb As SaDataTableFN
                 _executionStatus = ExecutionStatus.Executing
