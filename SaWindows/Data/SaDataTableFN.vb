@@ -302,6 +302,8 @@ Namespace SaWindows.Data
                     _recordCount = IIf(fetchRows <> affectRows OrElse affectRows = 0, _loadedRows, -1)
                 End If
                 Me.EndLoadData()
+            Catch ex As Exception
+                Console.Write(ex.Message)
             Finally
                 _isLoading = False
             End Try

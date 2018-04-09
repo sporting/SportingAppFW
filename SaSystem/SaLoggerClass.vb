@@ -22,6 +22,7 @@ Namespace SaSystem.Logger
             SaveLog(String.Format("[{0}] {1}", catelog, log), eventype)
         End Sub
 
+        Public EnableLog As Boolean = False;
         Public Overloads Sub SaveLog(ByVal log As String, Optional ByVal eventype As TraceEventType = TraceEventType.Information)
             Dim filepath As String = Path.Combine(_path, FRAMEWORK_NAMESPACE_LOG) '指定Log資料夾的路徑與應用程式的路徑相同
             If Not Directory.Exists(filepath) Then
@@ -37,7 +38,9 @@ Namespace SaSystem.Logger
                 .LogFileCreationSchedule = Logging.LogFileCreationScheduleOption.Daily '設定一天產生一個Log檔
             End With
 
-            My.Application.Log.WriteEntry(String.Format("{0}: {1}", FormatDateTime(Now, DateFormat.GeneralDate), log), eventype)
+            If EnableLog Then
+                My.Application.Log.WriteEntry(String.Format("{0}: {1}", FormatDateTime(Now, DateFormat.GeneralDate), log), eventype)
+            End If
 
             '#If DEBUG Then
             Console.WriteLine(log)

@@ -13,7 +13,7 @@ Namespace Extensions
         Public Function DateToTaiwanCalendarStr(dt As DateTime, Optional seperate As String = "/") As String
             Dim tc As TaiwanCalendar = New TaiwanCalendar()
 
-            Return tc.GetYear(dt).ToString() + seperate + tc.GetMonth(dt).ToString("00") + seperate + tc.GetDayOfMonth(dt).ToString()
+            Return tc.GetYear(dt).ToString() + seperate + tc.GetMonth(dt).ToString("00") + seperate + tc.GetDayOfMonth(dt).ToString("00")
         End Function
     End Module
 

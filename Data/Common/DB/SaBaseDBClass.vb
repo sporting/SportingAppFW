@@ -241,10 +241,32 @@ Namespace Data.Common.DB
         End Function
 
         Public Overridable Overloads Function ExecuteSQLFetchFirstData(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As Object
-            Dim dtb As SaDataTableFN = ExecuteSQL(sql, row)
+            Dim dtb As SaDataTableFN = ExecuteSQL(sql, row, True)
             If dtb IsNot Nothing Then
                 If dtb.Rows.Count > 0 Then
                     Return dtb.Rows(0).Item(0)
+                End If
+            End If
+
+            Return Nothing
+        End Function
+
+        Public Overridable Overloads Function ExecuteSQLFetchFirstRow(ByVal sql As String, ByVal row As List(Of SaDBParameter)) As DataRow
+            Dim dtb As SaDataTableFN = ExecuteSQL(sql, row, True)
+            If dtb IsNot Nothing Then
+                If dtb.Rows.Count > 0 Then
+                    Return dtb.Rows(0)
+                End If
+            End If
+
+            Return Nothing
+        End Function
+
+        Public Overridable Overloads Function ExecuteSQLFetchFirstRow(ByVal sql As String) As DataRow
+            Dim dtb As SaDataTableFN = ExecuteSQL(sql, True)
+            If dtb IsNot Nothing Then
+                If dtb.Rows.Count > 0 Then
+                    Return dtb.Rows(0)
                 End If
             End If
 
