@@ -113,7 +113,7 @@ Namespace Data.Common.DB
         Public Sub StartTransaction()
             If _db IsNot Nothing Then
                 If _transaction Is Nothing Then
-                    Logger.SaveLog(_logTag, "Start Transaction")
+                    '   Logger.SaveLog(_logTag, "Start Transaction")
                     _transaction = _db.BeginTransaction(IsolationLevel.ReadCommitted)
                 End If
             End If
@@ -122,7 +122,7 @@ Namespace Data.Common.DB
         Public Sub Commit()
             If _db IsNot Nothing Then
                 If _transaction IsNot Nothing Then
-                    Logger.SaveLog(_logTag, "Start Commit")
+                    '  Logger.SaveLog(_logTag, "Start Commit")
                     _transaction.Commit()
                     _transaction = Nothing
                 End If
@@ -132,7 +132,7 @@ Namespace Data.Common.DB
         Public Sub Rollback()
             If _db IsNot Nothing Then
                 If _transaction IsNot Nothing Then
-                    Logger.SaveLog(_logTag, "Start Rollback")
+                    ' Logger.SaveLog(_logTag, "Start Rollback")
                     _transaction.Rollback()
                     _transaction = Nothing
                 End If

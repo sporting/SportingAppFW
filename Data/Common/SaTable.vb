@@ -238,7 +238,7 @@ Namespace Data.Common
                     proval = attri.Key.GetValue(keyvaluefiels, Nothing)
                     If attri.Value.PrimaryKey Then
                         If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
+                            wherefilter.Add(String.Format("({0} IS NULL)", attri.Key.Name))
                         Else
                             wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
                         End If
@@ -250,7 +250,7 @@ Namespace Data.Common
                     For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In keyvaluefiels.SaFielsdAttributes
                         proval = attri.Key.GetValue(keyvaluefiels, Nothing)
                         If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
+                            wherefilter.Add(String.Format("({0} IS NULL)", attri.Key.Name))
                         Else
                             wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
                         End If
