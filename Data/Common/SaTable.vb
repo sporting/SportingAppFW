@@ -156,40 +156,23 @@ Namespace Data.Common
             Return row
         End Function
         Public Function DeleteRows(ByVal multikeyvaluefiels() As SaFields) As Integer
+            If multikeyvaluefiels.Count <= 0 Then
+                Return 0
+            End If
+
             Dim affectrowscnt As Integer
-            For Each row In multikeyvaluefiels
-                affectrowscnt = affectrowscnt + DeleteRow(row)
+
+            For Each keyvaluefields In multikeyvaluefiels
+                affectrowscnt = affectrowscnt + DeleteRow(keyvaluefields)
             Next
             Return affectrowscnt
+
         End Function
         Public Function DeleteRow(ByVal keyvaluefields As SaFields) As Integer
             Try
                 Dim wherefilter As List(Of String) = New List(Of String)()
-                Dim proval As Object
 
-                For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In keyvaluefields.SaFielsdAttributes
-                    If attri.Value.PrimaryKey Then
-                        proval = attri.Key.GetValue(keyvaluefields, Nothing)
-                        If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
-                        Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
-                        End If
-                    End If
-                Next
-
-
-                ' all fields are key
-                If wherefilter.Count = 0 Then
-                    For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In keyvaluefields.SaFielsdAttributes
-                        proval = attri.Key.GetValue(keyvaluefields, Nothing)
-                        If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL", attri.Key.Name))
-                        Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
-                        End If
-                    Next
-                End If
+                wherefilter.AddRange(keyvaluefields.GetPrimaryKeyValueSqls())
 
                 Dim cmd As IDbCommand = _db.CreateCommand()
                 'DBOpen()
@@ -220,48 +203,12 @@ Namespace Data.Common
 
         Public Function UpdateRow(ByVal keyvaluefiels As SaFields, ByVal valuefields As SaFields) As Integer
             Try
-                Dim valueparams As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))()
-                Dim wherefilter As List(Of String) = New List(Of String)()
-                Dim proval As Object
-
-                For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In valuefields.SaFielsdAttributes
-                    proval = attri.Key.GetValue(valuefields, Nothing)
-                    If attri.Value.AutoDateTime Then
-                        valueparams.Add(New KeyValuePair(Of String, String)(attri.Key.Name, Now.ToString("yyyy-MM-dd HH:mm:ss")))
-                    ElseIf proval IsNot Nothing Then
-                        valueparams.Add(New KeyValuePair(Of String, String)(attri.Key.Name, proval.ToString()))
-                    End If
-                Next
-
-                'For Each pro As PropertyInfo In keyvaluefiels.GetType().GetProperties()
-                For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In keyvaluefiels.SaFielsdAttributes
-                    proval = attri.Key.GetValue(keyvaluefiels, Nothing)
-                    If attri.Value.PrimaryKey Then
-                        If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL)", attri.Key.Name))
-                        Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
-                        End If
-                    End If
-                Next
-
-                ' all fields are key
-                If wherefilter.Count = 0 Then
-                    For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In keyvaluefiels.SaFielsdAttributes
-                        proval = attri.Key.GetValue(keyvaluefiels, Nothing)
-                        If proval Is Nothing Then
-                            wherefilter.Add(String.Format("({0} IS NULL)", attri.Key.Name))
-                        Else
-                            wherefilter.Add(String.Format("({0} = {1})", attri.Key.Name, proval.ToString().QuotedStr()))
-                        End If
-                    Next
-                End If
-
                 Dim fields As List(Of String) = New List(Of String)()
+                Dim wherefilter As List(Of String) = New List(Of String)()
 
-                For Each val As KeyValuePair(Of String, String) In valueparams
-                    fields.Add(String.Format("{0} = {1}", val.Key, val.Value.QuotedStr()))
-                Next
+                wherefilter.AddRange(keyvaluefiels.GetPrimaryKeyValueSqls())
+
+                fields.AddRange(keyvaluefiels.GetValueSqls())
 
                 Dim cmd As IDbCommand = _db.CreateCommand()
                 'DBOpen()
@@ -289,35 +236,10 @@ Namespace Data.Common
 
         Public Function InsertRow(ByVal valuefields As SaFields) As Integer
             Try
-                'Dim fieldsType As Type = valuefields.GetType()
-                'Dim valueparams As List(Of KeyValuePair(Of String, String)) = New List(Of KeyValuePair(Of String, String))()
-                'Dim attri As SaFieldsAttribute
-
-                Dim fields As List(Of String) = New List(Of String)()
-                Dim values As List(Of String) = New List(Of String)()
-
-                '    For Each pro As PropertyInfo In fieldsType.GetProperties()
-                For Each attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In valuefields.SaFielsdAttributes
-                    If attri.Value.AutoDateTime Then
-                        'valueparams.Add(New KeyValuePair(Of String, String)(pro.Name, Now.ToString("yyyy-MM-dd HH:mm:ss")))
-                        fields.Add(attri.Key.Name)
-                        values.Add(Now.ToString("yyyy-MM-dd HH:mm:ss").QuotedStr())
-                    ElseIf attri.Key.GetValue(valuefields, Nothing) IsNot Nothing Then
-                        ' valueparams.Add(New KeyValuePair(Of String, String)(pro.Name, pro.GetValue(valuefields, Nothing).ToString()))
-                        fields.Add(attri.Key.Name)
-                        values.Add(attri.Key.GetValue(valuefields, Nothing).ToString().QuotedStr())
-                    End If
-                Next
-
-                'For Each val As KeyValuePair(Of String, String) In valueparams
-                '    fields.Add(val.Key)
-                '    values.Add(val.Value.QuotedStr())
-                'Next
-
                 Dim cmd As IDbCommand = _db.CreateCommand()
                 'DBOpen()
 
-                cmd.CommandText = String.Format("INSERT INTO {0} ({1}) VALUES ({2})", TableName, String.Join(",", fields.ToArray()), String.Join(",", values.ToArray()))
+                cmd.CommandText = String.Format("INSERT INTO {0} ({1}) VALUES ({2})", TableName, String.Join(",", valuefields.Names()), String.Join(",", valuefields.Values()))
 
                 Dim affectrowscnt As Integer
                 affectrowscnt = cmd.ExecuteNonQuery()

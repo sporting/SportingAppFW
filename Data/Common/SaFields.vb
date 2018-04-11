@@ -1,4 +1,5 @@
 ﻿Imports System.Reflection
+Imports SportingAppFW.Extensions
 Imports SportingAppFW.Tools.SaAttributeUtility
 
 
@@ -33,6 +34,20 @@ Namespace Data.Common
             Get
                 Dim val = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
                           Select attri.Key.Name
+
+                If val.Count < 1 Then
+                    Return New String() {}
+                Else
+                    Return val.ToArray()
+                End If
+            End Get
+        End Property
+
+        ReadOnly Property Values As String()
+            Get
+                Dim val = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                          Select attri.Key.GetValue(Me, Nothing).ToString().QuotedStr()
+
 
                 If val.Count < 1 Then
                     Return New String() {}
@@ -84,9 +99,30 @@ Namespace Data.Common
         Public Function GetPrimaryKeys() As String()
             Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
                          Where attri.Value.PrimaryKey
-                         Select attri.Key
+                         Select attri.Key.Name
 
-            Return attris
+            Return attris.ToArray()
+        End Function
+
+        Public Function GetPrimaryKeyValueSqls() As String()
+            Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                         Where attri.Value.PrimaryKey
+                         Select String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr())
+
+            If attris.Count = 0 Then
+                attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                         Where attri.Value.PrimaryKey
+                         Select IIf(attri.Key.GetValue(Me, Nothing) Is Nothing, String.Format("({0} IS NULL)", attri.Key.Name), String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr()))
+            End If
+
+            Return attris.ToArray()
+        End Function
+
+        Public Function GetValueSqls() As String()
+            Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                         Select IIf(attri.Value.AutoDateTime, String.Format("({0} = {1})", attri.Key.Name, Now.ToString("yyyy-MM-dd HH:mm:ss").QuotedStr()), String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr()))
+
+            Return attris.ToArray()
         End Function
 
         Public Sub ClearFieldAttribute()

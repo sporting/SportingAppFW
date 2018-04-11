@@ -110,33 +110,54 @@ Namespace Data.Common.DB
             End If
         End Sub
 
+        Private _lock As Object = New Object()
+
+
         Public Sub StartTransaction()
-            If _db IsNot Nothing Then
-                If _transaction Is Nothing Then
-                    '   Logger.SaveLog(_logTag, "Start Transaction")
-                    _transaction = _db.BeginTransaction(IsolationLevel.ReadCommitted)
+            SyncLock _lock
+                If _db IsNot Nothing Then
+                    If _transaction Is Nothing Then
+                        '   Logger.SaveLog(_logTag, "Start Transaction")
+                        _transaction = _db.BeginTransaction(IsolationLevel.ReadCommitted)
+                    End If
                 End If
-            End If
+            End SyncLock
         End Sub
 
         Public Sub Commit()
-            If _db IsNot Nothing Then
-                If _transaction IsNot Nothing Then
-                    '  Logger.SaveLog(_logTag, "Start Commit")
-                    _transaction.Commit()
-                    _transaction = Nothing
+            SyncLock _lock
+                If _db IsNot Nothing Then
+                    If _transaction IsNot Nothing Then
+                        '  Logger.SaveLog(_logTag, "Start Commit")
+                        Try
+                            _transaction.Commit()
+
+                        Catch ex As Exception
+                            Logger.SaveLog(ex.Message)
+                        Finally
+                            _transaction = Nothing
+                        End Try
+                    End If
                 End If
-            End If
+            End SyncLock
         End Sub
 
         Public Sub Rollback()
-            If _db IsNot Nothing Then
-                If _transaction IsNot Nothing Then
-                    ' Logger.SaveLog(_logTag, "Start Rollback")
-                    _transaction.Rollback()
-                    _transaction = Nothing
+            SyncLock _lock
+                If _db IsNot Nothing Then
+                    If _transaction IsNot Nothing Then
+                        ' Logger.SaveLog(_logTag, "Start Rollback")
+                        Try
+                            _transaction.Rollback()
+
+                        Catch ex As Exception
+                            Logger.SaveLog(ex.Message)
+                        Finally
+                            _transaction = Nothing
+                        End Try
+                    End If
                 End If
-            End If
+            End SyncLock
         End Sub
 
 
