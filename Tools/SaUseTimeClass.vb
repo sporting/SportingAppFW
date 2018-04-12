@@ -24,8 +24,8 @@ Namespace Tools
                 Dim elapsedTime As String = String.Format("Elapsed Time: {0:00}:{1:00}:{2:00}.{3:00}",
                                         ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10)
                 Return elapsedTime
-            Else
-                Throw New System.Exception("Must call StartCal() before StopCal()")
+                'Else
+                '     Throw New System.Exception("Must call StartCal() before StopCal()")
             End If
         End Function
 

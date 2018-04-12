@@ -208,7 +208,7 @@ Namespace Data.Common
 
                 wherefilter.AddRange(keyvaluefiels.GetPrimaryKeyValueSqls())
 
-                fields.AddRange(keyvaluefiels.GetValueSqls())
+                fields.AddRange(valuefields.GetValueSqls())
 
                 Dim cmd As IDbCommand = _db.CreateCommand()
                 'DBOpen()
@@ -222,6 +222,7 @@ Namespace Data.Common
 
                 Return affectrowscnt
             Catch ex As Exception
+
                 Return 0
             End Try
 

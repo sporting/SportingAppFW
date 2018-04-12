@@ -11,6 +11,9 @@ Namespace Data.Common
         Private _fieldAttributes As List(Of KeyValuePair(Of PropertyInfo, SaFieldsAttribute)) = New List(Of KeyValuePair(Of PropertyInfo, SaFieldsAttribute))()
         Private _fieldUIAttributes As List(Of KeyValuePair(Of PropertyInfo, SaUIFieldsAttribute)) = New List(Of KeyValuePair(Of PropertyInfo, SaUIFieldsAttribute))()
 
+        Private _primaryKeys As String()
+        Private _names As String()
+
         ReadOnly Property SaFielsdAttributes As List(Of KeyValuePair(Of PropertyInfo, SaFieldsAttribute))
             Get
                 Return _fieldAttributes
@@ -32,14 +35,7 @@ Namespace Data.Common
 
         ReadOnly Property Names As String()
             Get
-                Dim val = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
-                          Select attri.Key.Name
-
-                If val.Count < 1 Then
-                    Return New String() {}
-                Else
-                    Return val.ToArray()
-                End If
+                Return _names
             End Get
         End Property
 
@@ -92,16 +88,30 @@ Namespace Data.Common
                         _fieldUIAttributes.Add(New KeyValuePair(Of PropertyInfo, SaUIFieldsAttribute)(pro, attri2))
                     End If
                 Next
+
+                '所有欄位名稱
+                Dim val = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                          Select attri.Key.Name
+
+                If val.Count < 1 Then
+                    _names = New String() {}
+                Else
+                    _names = val.ToArray()
+                End If
+
+                '所有 primary keys
+                Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
+                             Where attri.Value.PrimaryKey
+                             Select attri.Key.Name
+
+                _primaryKeys = attris.ToArray()
+
             Catch ex As Exception
                 Console.WriteLine(String.Format("{0} {1}", "SaFields", ex.Message))
             End Try
         End Sub
         Public Function GetPrimaryKeys() As String()
-            Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
-                         Where attri.Value.PrimaryKey
-                         Select attri.Key.Name
-
-            Return attris.ToArray()
+            Return _primaryKeys
         End Function
 
         Public Function GetPrimaryKeyValueSqls() As String()
@@ -112,7 +122,7 @@ Namespace Data.Common
             If attris.Count = 0 Then
                 attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
                          Where attri.Value.PrimaryKey
-                         Select IIf(attri.Key.GetValue(Me, Nothing) Is Nothing, String.Format("({0} IS NULL)", attri.Key.Name), String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr()))
+                         Select CType(IIf(attri.Key.GetValue(Me, Nothing) Is Nothing, String.Format("({0} IS NULL)", attri.Key.Name), String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr())), String)
             End If
 
             Return attris.ToArray()
@@ -120,7 +130,8 @@ Namespace Data.Common
 
         Public Function GetValueSqls() As String()
             Dim attris = From attri As KeyValuePair(Of PropertyInfo, SaFieldsAttribute) In _fieldAttributes
-                         Select IIf(attri.Value.AutoDateTime, String.Format("({0} = {1})", attri.Key.Name, Now.ToString("yyyy-MM-dd HH:mm:ss").QuotedStr()), String.Format("({0} = {1})", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr()))
+                         Where attri.Value.AutoDateTime OrElse attri.Key.GetValue(Me, Nothing) IsNot Nothing
+                         Select CType(IIf(attri.Value.AutoDateTime, String.Format("{0} = {1}", attri.Key.Name, Now.ToString("yyyy-MM-dd HH:mm:ss").QuotedStr()), String.Format("{0} = {1}", attri.Key.Name, attri.Key.GetValue(Me, Nothing).ToString().QuotedStr())), String)
 
             Return attris.ToArray()
         End Function
