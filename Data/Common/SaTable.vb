@@ -91,7 +91,9 @@ Namespace Data.Common
             If pro.PropertyType Is GetType(String) Then
                 Return "TEXT"
             ElseIf pro.PropertyType Is GetType(Integer) Then
-                Return "Integer"
+                Return "INTEGER"
+            ElseIf pro.PropertyType Is GetType(Double) Then
+                Return "NUMERIC" 'REAL
             End If
 
             Return "TEXT"
