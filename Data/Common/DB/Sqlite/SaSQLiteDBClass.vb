@@ -223,7 +223,7 @@ Namespace Data.Common.DB.Sqlite
         Public Overrides Function GetTables() As SaDataTableFN
             CreateConnection()
 
-            Dim sql As String = "SELECT TBL_NAME AS TABLE_DESC,TBL_NAME AS TABLE_NAME,-1 AS NUM_ROWS FROM SQLITE_MASTER WHERE TYPE='table' ORDER BY TABLE_NAME"
+            Dim sql As String = "SELECT  TBL_NAME AS TABLE_DESC,TBL_NAME AS TABLE_NAME,-1 AS NUM_ROWS FROM SQLITE_MASTER WHERE TYPE in ('table','view') ORDER BY TABLE_NAME"
 
             ' Logger.SaveLog(LogTag, sql)
             If _db IsNot Nothing Then

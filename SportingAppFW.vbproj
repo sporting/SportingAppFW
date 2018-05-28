@@ -102,38 +102,38 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\CrossDBOps\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>.\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\stock\程式交易\HolyCup\StockManager\packages\Newtonsoft.Json.11.0.2\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>.\packages\Newtonsoft.Json.11.0.2\lib\net35\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\CrossDBOps\packages\NPOI.2.3.0\lib\net20\NPOI.dll</HintPath>
+      <HintPath>.\packages\NPOI.2.3.0\lib\net20\NPOI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI.OOXML, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\CrossDBOps\packages\NPOI.2.3.0\lib\net20\NPOI.OOXML.dll</HintPath>
+      <HintPath>.\packages\NPOI.2.3.0\lib\net20\NPOI.OOXML.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\CrossDBOps\packages\NPOI.2.3.0\lib\net20\NPOI.OpenXml4Net.dll</HintPath>
+      <HintPath>.\packages\NPOI.2.3.0\lib\net20\NPOI.OpenXml4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <HintPath>..\CrossDBOps\packages\NPOI.2.3.0\lib\net20\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>.\packages\NPOI.2.3.0\lib\net20\NPOI.OpenXmlFormats.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Oracle.DataAccess, Version=2.111.7.20, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Core.1.0.108.0\lib\net20\System.Data.SQLite.dll</HintPath>
+      <HintPath>.\packages\System.Data.SQLite.Core.1.0.108.0\lib\net20\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net20\System.Data.SQLite.Linq.dll</HintPath>
+      <HintPath>.\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net20\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -346,9 +346,9 @@ copy /Y $(TargetPath) D:\dailyJob</PostBuildEvent>
     <PropertyGroup>
       <ErrorText>此專案參考這部電腦上所缺少的 NuGet 封裝。請啟用 NuGet 封裝還原，以下載該封裝。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('.\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '.\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets'))" />
   </Target>
-  <Import Project="..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\stock\程式交易\HolyCup\StockManager\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets')" />
+  <Import Project=".\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('.\packages\System.Data.SQLite.Core.1.0.108.0\build\net20\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
