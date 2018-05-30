@@ -89,8 +89,9 @@ Namespace SaWindows.Data
             _dataAdapter.FillSchema(Me, SchemaType.Source)
             Try
                 _cmdBuilder = CreateCommandBuilder(_dataAdapter, _connection)
-                _dataAdapter.InsertCommand = _cmdBuilder.GetInsertCommand
+
                 If (PrimaryKey.Count > 0) Then
+                    _dataAdapter.InsertCommand = _cmdBuilder.GetInsertCommand
                     _dataAdapter.UpdateCommand = _cmdBuilder.GetUpdateCommand
                     _dataAdapter.DeleteCommand = _cmdBuilder.GetDeleteCommand
                 End If
