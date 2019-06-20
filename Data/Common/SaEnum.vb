@@ -6,6 +6,7 @@
             Oracle
             SQLite
             OleDB
+            MySQL
         End Enum
 
         Public Enum eExcelVerEnum As Integer

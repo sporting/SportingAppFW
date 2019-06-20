@@ -51,6 +51,6 @@ Partial Class SaMultiComboPopup
 
     End Sub
 
-    Private WithEvents lstvMyView As Windows.Forms.ListView
+    Private WithEvents lstvMyView As System.Windows.Forms.ListView
 End Class
 

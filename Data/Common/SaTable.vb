@@ -196,7 +196,7 @@ Namespace Data.Common
 
         Public Function UpdateRows(ByVal multikeyvaluefiels As SaFields(), ByVal multivaluefields As SaFields()) As Integer
             Dim affectrowscnt As Integer = 0
-            For idx As Integer = 0 To multikeyvaluefiels.Length
+            For idx As Integer = 0 To multikeyvaluefiels.Length - 1
                 affectrowscnt = affectrowscnt + UpdateRow(multikeyvaluefiels(idx), multivaluefields(idx))
             Next
 
@@ -230,12 +230,14 @@ Namespace Data.Common
 
         End Function
 
-        Public Sub InsertRows(ByVal multivaluefields As SaFields())
+        Public Function InsertRows(ByVal multivaluefields As SaFields()) As Integer
             Dim affectrowscnt As Integer = 0
             For Each row As SaFields In multivaluefields
                 affectrowscnt = affectrowscnt + InsertRow(row)
             Next
-        End Sub
+
+            Return affectrowscnt
+        End Function
 
         Public Function InsertRow(ByVal valuefields As SaFields) As Integer
             Try
@@ -381,6 +383,44 @@ Namespace Data.Common
             Next
             Return ht
         End Function
+
+        Public Function ToFields(table As SaDataTableFN) As SaFields()
+
+            Dim fieldRows As List(Of SaFields) = New List(Of SaFields)()
+            Dim vary As PropertyInfo()
+            Dim pro As PropertyInfo
+            Dim colName As String = String.Empty
+
+            Try
+                For Each row As DataRow In table.Rows
+                    'Dim field As SaFields = New SaFields()
+
+                    Dim field As SaFields = Activator.CreateInstance(Fields.GetType())
+                    Dim pros As PropertyInfo() = Fields.GetType.GetProperties()
+
+                    For Each col As DataColumn In row.Table.Columns
+                        colName = col.ColumnName
+                        vary = (From p In pros Where p.Name = colName Select p).ToArray()
+
+                        If vary.Count() > 0 Then
+                            pro = vary(0)
+                            If pro.PropertyType Is GetType(String) Then
+                                pro.SetValue(field, row(col).ToString(), Nothing)
+                            Else
+                                pro.SetValue(field, Convert.ToDouble(row(col).ToString()), Nothing)
+                            End If
+                        End If
+                    Next
+                    fieldRows.Add(field)
+                Next
+
+                Return fieldRows.ToArray()
+            Catch ex As Exception
+                Console.WriteLine(ex.Message)
+                Return Nothing
+            End Try
+        End Function
+
     End Class
 
 End Namespace

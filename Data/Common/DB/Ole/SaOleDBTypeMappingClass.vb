@@ -1,4 +1,4 @@
-﻿Namespace Data.Common.DB
+﻿Namespace Data.Common.DB.Ole
     ''' <summary>
     ''' DB Table to ORM Class
     ''' </summary>

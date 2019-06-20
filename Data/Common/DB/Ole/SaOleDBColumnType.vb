@@ -1,4 +1,4 @@
-﻿Namespace Data.Common.DB
+﻿Namespace Data.Common.DB.Ole
     Public Class SaOleDBColumnType
         Inherits SaDBColumnType
         Public Overrides ReadOnly Property MsType As System.Type

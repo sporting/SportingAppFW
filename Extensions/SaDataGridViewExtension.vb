@@ -52,7 +52,7 @@ Namespace Extensions
             Catch ex As Exception
                 Return False
             End Try
-            Return True
+
         End Function
 
         <Extension()>

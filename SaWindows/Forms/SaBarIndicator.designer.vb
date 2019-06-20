@@ -91,8 +91,8 @@
         Friend WithEvents PanelIndicator As System.Windows.Forms.Panel
         Friend WithEvents NTBRangeValue As SaNumericTextBox
         Friend WithEvents TBDefineValue As System.Windows.Forms.TextBox
-        Friend WithEvents CMSDelItem As Windows.Forms.ContextMenuStrip
-        Friend WithEvents TSMIDelete As Windows.Forms.ToolStripMenuItem
+        Friend WithEvents CMSDelItem As System.Windows.Forms.ContextMenuStrip
+        Friend WithEvents TSMIDelete As System.Windows.Forms.ToolStripMenuItem
     End Class
 
 End Namespace

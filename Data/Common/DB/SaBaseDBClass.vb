@@ -236,6 +236,29 @@ Namespace Data.Common.DB
 
         Public MustOverride Function GetColumns(ByVal table As SaTableSettings) As SaDataTableFN
 
+        Public Overridable Function GetGeneralColumns(ByVal table As SaTableSettings) As String()
+            CreateConnection()
+            Dim sql As String = String.Format("SELECT * FROM {0} WHERE 1=0", table.TableName)
+            If _db IsNot Nothing Then
+                Dim dtb As SaDataTableFN
+                _executionStatus = ExecutionStatus.Executing
+                Try
+                    dtb = New SaDataTableFN(sql, _db)
+                    dtb.FillByDataAdapter(True)
+
+                    Dim cols = From col As DataColumn In dtb.Columns
+                               Select col.ColumnName
+
+                    Return cols.ToArray()
+                Finally
+                    _executionStatus = ExecutionStatus.Idle
+                End Try
+            End If
+            DBMessage(Me, "No Connection")
+            Return Nothing
+        End Function
+
+
         Public MustOverride Function GetColumnsTypeCollection(ByVal table As SaTableSettings) As List(Of SaDBColumnType)
 
         Public MustOverride Function ExecutionPlan(sql As String) As SaDataTableFN

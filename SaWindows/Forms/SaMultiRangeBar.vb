@@ -322,7 +322,7 @@ Namespace SaWindows.Forms
 
         Dim _startDrag As Boolean = False
         Protected Sub IndicatorMouseDown(ByVal sender As Object, ByVal e As MouseEventArgs)
-            If e.Button = Windows.Forms.MouseButtons.Left Then
+            If e.Button = System.Windows.Forms.MouseButtons.Left Then
                 _startDrag = True
             End If
         End Sub

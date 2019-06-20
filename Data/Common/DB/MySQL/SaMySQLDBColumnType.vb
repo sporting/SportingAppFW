@@ -1,9 +1,9 @@
-﻿Namespace Data.Common.DB.MSSql
-    Public Class SaMSSqlDBColumnType
+﻿Namespace Data.Common.DB.MySQL
+    Public Class SaMySQLDBColumnType
         Inherits SaDBColumnType
         Public Overrides ReadOnly Property MsType As System.Type
             Get
-                Return SaMSSqlDBTypeMappingClass.Instance.Mapping(data_type)
+                Return SaMySQLDBTypeMappingClass.Instance.Mapping(data_type)
             End Get
         End Property
 
