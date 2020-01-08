@@ -8,7 +8,6 @@ Namespace Data.Common.DB
     Public MustInherit Class SaDBColumnType
         Dim _column As String
         Friend Property data_type As String
-        Dim _ms_type As System.Type
 
         Public Property Column As String
             Get
