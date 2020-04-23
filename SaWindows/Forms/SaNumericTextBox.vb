@@ -50,17 +50,23 @@ Namespace SaWindows.Forms
         End Sub
 
 
-        Public ReadOnly Property IntValue() As Integer
+        Public Property IntValue() As Integer
             Get
                 Return Int32.Parse(Me.Text)
             End Get
+            Set(value As Integer)
+                Me.Text = value.ToString()
+            End Set
         End Property
 
 
-        Public ReadOnly Property DecimalValue() As Decimal
+        Public Property DecimalValue() As Decimal
             Get
                 Return [Decimal].Parse(Me.Text)
             End Get
+            Set(value As [Decimal])
+                Me.Text = value.ToString()
+            End Set
         End Property
 
 

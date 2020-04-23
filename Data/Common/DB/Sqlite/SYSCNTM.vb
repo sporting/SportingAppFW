@@ -25,7 +25,7 @@ Namespace Data.Common.DB.Sqlite
             CreateTable()
         End Sub
 
-        Public Function GetNextVal(ByVal leadingCode As String) As String
+        Public Function GetNextVal(ByVal leadingCode As String, Optional ByVal formatLength As Integer = 2) As String
             Dim today As String = Now.ToString("yyyyMMdd")
             Dim dt As SaDataTableFN = SelectWhere(String.Format("{0}={1} AND RESET_DATE={2}", "COUNTER_ID", leadingCode.QuotedStr(), today.QuotedStr()))
             Dim nextVal As String
@@ -34,11 +34,11 @@ Namespace Data.Common.DB.Sqlite
 
                 UpdateRow(New SYSCNTMFields(leadingCode, today, 0), New SYSCNTMFields(leadingCode, today, val))
 
-                nextVal = String.Format("{0}{1}{2:00}", leadingCode, today, val)
+                nextVal = String.Format("{0}{1}{" + formatLength.ToString() + ":00}", leadingCode, today, val)
             Else
                 InsertRow(New SYSCNTMFields(leadingCode, today, 1))
 
-                nextVal = String.Format("{0}{1}{2:00}", leadingCode, today, 1)
+                nextVal = String.Format("{0}{1}{" + formatLength.ToString() + ":00}", leadingCode, today, 1)
             End If
             Return nextVal
         End Function
